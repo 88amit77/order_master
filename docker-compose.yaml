@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  orders_web:
+    build: ./orders
+    command: bash -c "python3 ./orders/manage.py runserver 0.0.0.0:8001"
+    volumes:
+      - .:/code
+    ports:
+      - 8001:8001
+    restart: always
+      
+  nginx:
+    build: ./web
+    ports:
+      - 80:80
+    links:
+      - orders_web
+    depends_on:
+      - orders_web
