@@ -46,7 +46,7 @@ class CustomOrderPagination(PageNumberPagination):
                     'name',
                 ],
                 'header': {
-                    'buymore_order_id':'Buymor Order ID',
+                    'buymore_order_id':'Buymore Order ID',
                     'dd_id':'DD ID',
                     'product_id':'Product ID',
                     'order_id':'Order ID',
@@ -100,7 +100,7 @@ class CustomOrderSearchPagination(PageNumberPagination):
                     'name',
                 ],
                 'header': {
-                    'buymore_order_id':'Buymor Order ID',
+                    'buymore_order_id':'Buymore Order ID',
                     'dd_id':'DD ID',
                     'product_id':'Product ID',
                     'order_id':'Order ID',
