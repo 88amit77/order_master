@@ -29,6 +29,8 @@ router.register('update_cancel_bin_id', views.updateCancelBinIdViewSet, basename
 urlpatterns = [
     path('', include(router.urls)),
     path("docs/", schema_view),
+    path('order_view_search/', views.OrderViewSearchAPIView.as_view())
+
 ]
 
 
