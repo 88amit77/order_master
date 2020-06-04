@@ -26,13 +26,15 @@ router.register('update_cancel_bin_id', views.updateCancelBinIdViewSet, basename
 
 #return management POD list page
 router.register('create_pod_list', views.CreateRMPODlistViewSet, basename="create_pod_list")
+router.register('list_pod_list', views.ListRMPODlistViewSet, basename="list_pod_list")
 
 
 
 urlpatterns = [
     path('', include(router.urls)),
     path("docs/", schema_view),
-    path('order_view_search/', views.OrderViewSearchAPIView.as_view())
+    path('order_view_search/', views.OrderViewSearchAPIView.as_view()),
+    path('list_pod_list_search/', views.SearchListRMPODlistViewSet.as_view()),
 
 ]
 

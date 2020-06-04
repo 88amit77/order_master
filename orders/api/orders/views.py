@@ -152,6 +152,66 @@ class CustomOrderSearchPagination(PageNumberPagination):
             'results': data
         })
 
+class CustomRMPODListPagination(PageNumberPagination):
+    page = DEFAULT_PAGE
+    page_size = 20
+    page_size_query_param = 'page_size'
+
+    def get_paginated_response(self, data):
+        return Response({
+            'links': {
+                'next': self.get_next_link(),
+                'previous': self.get_previous_link()
+            },
+            'total': self.page.paginator.count,
+            'page': int(self.request.GET.get('page', DEFAULT_PAGE)),
+            'page_size': int(self.request.GET.get('page_size', self.page_size)),
+            'UI_data': {
+                'sticky_headers': [
+                    'pod_id',
+                    'pod_number',
+                    'courier_partner_name',
+                ],
+                'header': {
+                    'pod_id':'POD ID',
+                    'pod_number':'POD Number',
+                    'courier_partner_name':'Courier Partner Name',
+                    'pod_image_list':'POD Image List',
+                    'total_quantity_received' :'Total Quantity Received',
+                    'processed_quantity':'Processed Quantity',
+                    'warehouse_id' :'Warehouse ID',
+                    'courier_received_date': 'Courier Received Date',
+                    'created_by': 'Created By',
+                    'status': 'Status',
+                    'updated_at': 'Updated At',
+                    'remaining_quantity':'Remaining Quantity',
+                    'warehouse_name':'Warehouse Name',
+                    'recieved_by':'Recieved By',
+
+
+                   },
+                'sortable': [
+                    'pod_id',
+                    'pod_number',
+                ],
+                'searchable': [
+                     'pod_id',
+                     'pod_number',
+                     'courier_partner_name',
+                     'pod_image_list',
+                     'total_quantity_received',
+                     'processed_quantity',
+                     'warehouse_id',
+                     'courier_received_date',
+                     'created_by',
+                     'status',
+                     'updated_at',
+                ],
+
+            },
+            'results': data
+        })
+
 
 class NewOrderViewSet(viewsets.ModelViewSet):
     queryset = NewOrder.objects.all()
@@ -234,3 +294,38 @@ class OrderViewSearchAPIView(generics.ListCreateAPIView):
 class CreateRMPODlistViewSet(viewsets.ModelViewSet):
     queryset = PODList.objects.all()
     serializer_class = ReturnManagementPODListSerializer
+
+
+class ListRMPODlistViewSet(viewsets.ViewSet):
+    def create(self, request):
+        queryset = PODList.objects.all()
+        serializer = PODListSerializer(queryset, many=True)
+        if len(queryset) > 0:
+            paginator = CustomRMPODListPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            serializer = PODListSerializer(result_page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        else:
+            paginator = CustomRMPODListPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            return paginator.get_paginated_response(result_page)
+
+
+class SearchListRMPODlistViewSet(generics.ListCreateAPIView):
+    search_fields = [ 'pod_id',
+                     'pod_number',
+                     'courier_partner_name',
+                     'pod_image_list',
+                     'total_quantity_received',
+                     'processed_quantity',
+                     'warehouse_id',
+                     'courier_received_date',
+                     'created_by',
+                     'status',
+                     'updated_at',
+   ]
+    ordering_fields = ['pod_id','pod_number']
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    queryset = PODList.objects.all()
+    serializer_class = PODListSerializer
+    pagination_class = CustomRMPODListPagination
