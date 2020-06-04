@@ -125,3 +125,9 @@ class updateCancelBinIdSerializer(serializers.Serializer):
             dd_idd.cancel_inward_bin = dd_dispatchdetail_data.get('cancel_inward_bin', dd_idd.cancel_inward_bin)
             dd_idd.save()
         return instance
+
+#return management PODList page
+class ReturnManagementPODListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PODList
+        fields = ('pod_id', 'pod_number', 'courier_partner_name', 'pod_image_list', 'total_quantity_received')

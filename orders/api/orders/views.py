@@ -17,6 +17,7 @@ from .serializers import (
 OrderViewNewOrderSerializer,
 updateBinIdSerializer,
 updateCancelBinIdSerializer,
+ReturnManagementPODListSerializer,
 
 
                           )
@@ -229,3 +230,7 @@ class OrderViewSearchAPIView(generics.ListCreateAPIView):
     pagination_class = CustomOrderSearchPagination
 
 
+#ReturnManagement POD list page
+class CreateRMPODlistViewSet(viewsets.ModelViewSet):
+    queryset = PODList.objects.all()
+    serializer_class = ReturnManagementPODListSerializer

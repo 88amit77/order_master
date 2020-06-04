@@ -24,6 +24,9 @@ router.register('list_order_view', views.ListorderViewSet, basename="list_order_
 router.register('update_bin_id', views.updateBinIdViewSet, basename="update_bin_id")
 router.register('update_cancel_bin_id', views.updateCancelBinIdViewSet, basename="update_cancel_bin_id")
 
+#return management POD list page
+router.register('create_pod_list', views.CreateRMPODlistViewSet, basename="create_pod_list")
+
 
 
 urlpatterns = [

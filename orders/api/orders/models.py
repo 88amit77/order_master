@@ -75,21 +75,20 @@ class Reimburesement(models.Model):
 
 
 class PODList(models.Model):
+    pod_id = models.AutoField(primary_key=True)
+    pod_number = models.CharField(max_length=20)
+    courier_partner_name = models.CharField(max_length=30)
+    pod_image_list = models.URLField(null=True, blank=True)
+    total_quantity_received = models.IntegerField()
+    processed_quantity = models.IntegerField(null=True, blank=True)
+    warehouse_id = models.IntegerField(null=True, blank=True)
+    courier_received_date = models.DateField(null=True, blank=True)
+    created_by = models.CharField(max_length=20, null=True, blank=True)
+    status = models.CharField(max_length=20, null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
 
-      pod_id = models.AutoField(primary_key=True)
-      pod_number = models.CharField(max_length=20)
-      courier_partner_name = models.CharField(max_length=30)
-      pod_image_list = models.URLField(null=True, blank=True)
-      total_quantity_received = models.IntegerField()
-      processed_quantity = models.IntegerField()
-      warehouse_id = models.IntegerField()
-      courier_received_date = models.DateField()
-      created_by = models.CharField(max_length=20)
-      status = models.CharField(max_length=20)
-      updated_at = models.DateTimeField()
-
-      def __str__(self):
-          return str(self.pod_id)
+    def __str__(self):
+        return str(self.pod_id)
 
 
 
