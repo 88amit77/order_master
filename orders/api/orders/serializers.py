@@ -74,40 +74,19 @@ class OrderViewNewOrderSerializer(serializers.ModelSerializer):
                   'region', 'payment_method', 'dd_dispatchdetailss', 'dd_fullfilledreturn', 'dd_reimburesements')
 
 #update for view page
-#worked perfectly
-# class updateBinIdSerializer(serializers.Serializer):
-#
-#     dd_dispatchdetailss = DispatchDetailsSerializer(many=True)
-#
-#     class Meta:
-#         model = NewOrder
-#         fields = ('buymore_order_id', 'dd_dispatchdetailss')
-#
-#     def update(self, instance, validated_data):
-#
-#         dd_dispatchdetailss_data = validated_data.pop('dd_dispatchdetailss')
-#         dd_id = (instance.dd_dispatchdetailss).all()
-#         dd_id = list(dd_id)
-#         instance.save()
-#
-#         for dd_dispatchdetail_data in dd_dispatchdetailss_data:
-#             dd_idd = dd_id.pop(0)
-#             dd_idd.is_canceled = dd_dispatchdetail_data.get('is_canceled', dd_idd.is_canceled)
-#             dd_idd.save()
-#         return instance
-class OrderViewUpdateCancelInwarBinDispatchDetailsSerializer(serializers.ModelSerializer):
+class OrderViewUpdateIsCancelBinDispatchDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = DispatchDetails
         fields = ('is_canceled',)
 
-class OrderViewUpdateISCancelDispatchDetailsSerializer(serializers.ModelSerializer):
+class OrderViewUpdateCancelInwarBinDispatchDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = DispatchDetails
         fields = ('cancel_inward_bin',)
 
 class updateBinIdSerializer(serializers.Serializer):
 
-    dd_dispatchdetailss = OrderViewUpdateISCancelDispatchDetailsSerializer(many=True)
+    dd_dispatchdetailss = OrderViewUpdateIsCancelBinDispatchDetailsSerializer(many=True)
 
     class Meta:
         model = NewOrder
@@ -128,7 +107,7 @@ class updateBinIdSerializer(serializers.Serializer):
 
 class updateCancelBinIdSerializer(serializers.Serializer):
 
-    dd_dispatchdetailss = OrderViewUpdateISCancelDispatchDetailsSerializer(many=True)
+    dd_dispatchdetailss = OrderViewUpdateCancelInwarBinDispatchDetailsSerializer(many=True)
 
     class Meta:
         model = NewOrder
