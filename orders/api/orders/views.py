@@ -61,6 +61,7 @@ class CustomOrderPagination(PageNumberPagination):
                     'warehouse_id' : 'Warehouse ID',
                     'region'  : 'Region',
                     'payment_method' : 'Payment Method',
+                    'status': "Order Status",
                     'is_canceled':'IS Canceled',
                     'cancel_inward_bin': 'Cancel Inward Bin',
                     'return_request_date':'Return Request Date',
@@ -114,6 +115,7 @@ class CustomOrderSearchPagination(PageNumberPagination):
                     'warehouse_id' : 'Warehouse ID',
                     'region'  : 'Region',
                     'payment_method' : 'Payment Method',
+                    'status': "Order Status",
                     'is_canceled':'IS Canceled',
                     'cancel_inward_bin': 'Cancel Inward Bin',
                     'return_request_date':'Return Request Date',
@@ -225,3 +227,5 @@ class OrderViewSearchAPIView(generics.ListCreateAPIView):
     queryset = NewOrder.objects.all()
     serializer_class = OrderViewNewOrderSerializer
     pagination_class = CustomOrderSearchPagination
+
+
