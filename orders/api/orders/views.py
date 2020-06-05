@@ -329,3 +329,13 @@ class SearchListRMPODlistViewSet(generics.ListCreateAPIView):
     queryset = PODList.objects.all()
     serializer_class = PODListSerializer
     pagination_class = CustomRMPODListPagination
+
+
+class SearchListRMPODlistWarehouseViewSet(generics.ListCreateAPIView):
+    search_fields = ['warehouse_id', ]
+
+    filter_backends = (filters.SearchFilter, )
+    queryset = PODList.objects.all()
+    serializer_class = PODListSerializer
+    pagination_class = CustomRMPODListPagination
+

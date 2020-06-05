@@ -35,6 +35,8 @@ urlpatterns = [
     path("docs/", schema_view),
     path('order_view_search/', views.OrderViewSearchAPIView.as_view()),
     path('list_pod_list_search/', views.SearchListRMPODlistViewSet.as_view()),
+    path('list_pod_Warehousewise_search/', views.SearchListRMPODlistWarehouseViewSet.as_view()),
+
 
 ]
 
