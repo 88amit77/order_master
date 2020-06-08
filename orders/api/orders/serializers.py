@@ -155,6 +155,7 @@ class CaseStatusListSerializer(serializers.ModelSerializer):
             c = 200
             return c
             #return obj.dd_id.count()
+
 #order manifest page
 class CreateManiFestSerializer(serializers.ModelSerializer):
     class Meta:
@@ -165,8 +166,6 @@ class ManifestListSerializer(serializers.ModelSerializer):
     quantity = serializers.SerializerMethodField(method_name='get_data')
     class Meta:
          model = ManiFest
-         #fields =('case_id', 'status_of_case', 'reimbursement_amount', 'quantity', 'dd_id')
-
          fields = ('mf_id', 'courier_partner', 'created_date', 'quantity')
 
     def get_data(self, obj):

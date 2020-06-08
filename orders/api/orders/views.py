@@ -536,12 +536,11 @@ class SearchListManiFestViewSet(generics.ListCreateAPIView):
                     'mf_id',
                     'courier_partner',
                     'created_date',
-                    'created_date',
                     'quantity',
                      ]
     ordering_fields = ['mf_id',]
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     queryset = ManiFest.objects.all()
-    serializer_class = CreateManiFestSerializer
+    serializer_class = ManifestListSerializer
     pagination_class = CustomManiFestPagination
 
