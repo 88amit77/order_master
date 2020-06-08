@@ -285,7 +285,7 @@ class CustomCaseStatusPagination(PageNumberPagination):
                 ],
                 'header': {
                     'rr_id' : 'RR ID',
-                    # 'dd_id' : 'DD ID',
+                    'dd_id' : 'DD ID',
                     'case_id' : 'Case ID',
                     'status_of_case':'Status Of Case',
                     # 'case_content' :'Case Content',
