@@ -146,7 +146,7 @@ class CaseStatusListSerializer(serializers.ModelSerializer):
          model = Reimbursement
          #fields =('case_id', 'status_of_case', 'reimbursement_amount', 'quantity', 'dd_id')
 
-         fields = ('rr_id','dd_id' ,'case_id', 'status_of_case', 'reimbursement_amount', 'quantity')
+         fields = ('rr_id', 'case_id', 'status_of_case', 'reimbursement_amount', 'quantity','dd_id' )
 
 
 
@@ -155,3 +155,21 @@ class CaseStatusListSerializer(serializers.ModelSerializer):
             c = 200
             return c
             #return obj.dd_id.count()
+#order manifest page
+class CreateManiFestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ManiFest
+        fields = '__all__'
+
+class ManifestListSerializer(serializers.ModelSerializer):
+    quantity = serializers.SerializerMethodField(method_name='get_data')
+    class Meta:
+         model = ManiFest
+         #fields =('case_id', 'status_of_case', 'reimbursement_amount', 'quantity', 'dd_id')
+
+         fields = ('mf_id', 'courier_partner', 'created_date', 'quantity')
+
+    def get_data(self, obj):
+
+        c = 200
+        return c

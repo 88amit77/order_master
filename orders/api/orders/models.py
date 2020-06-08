@@ -1,12 +1,6 @@
 from django.db import models
 
-class ManiFest(models.Model):
-    mf_id = models.AutoField(primary_key=True)
-    courier_partner = models.CharField(max_length=20)
-    mf_sheet = models.URLField()
-    created_date = models.DateField()
-    def __str__(self):
-        return str(self.mf_id)
+
 
 
 class NewOrder(models.Model):
@@ -50,9 +44,9 @@ class DispatchDetails(models.Model):
     packing_status = models.BooleanField(default=False)
     is_dispatch = models.BooleanField(default=False)
     dispatch_confirmed = models.BooleanField(default=False)
-    mf_id = models.ForeignKey(ManiFest, on_delete=models.CASCADE, related_name='mf_dispatchdetailss', null=True, blank=True)
+    mf_id = models.IntegerField(null=True, blank=True)
     is_shipment_create = models.BooleanField(default=False)
-    awb = models.CharField(max_length=30)
+    awb = models.CharField(max_length=30, null=True, blank=True)
     courier_partner = models.CharField(max_length=30)
     shipment_id = models.IntegerField()
     is_canceled = models.BooleanField(default=False)
@@ -61,7 +55,16 @@ class DispatchDetails(models.Model):
     update_at = models.DateTimeField()
 
     def __str__(self):
-        return self.name
+        return self.awb
+
+class ManiFest(models.Model):
+    mf_id = models.AutoField(primary_key=True)
+    courier_partner = models.CharField(max_length=20)
+    mf_sheet = models.URLField()
+    created_date = models.DateField()
+    awb = models.ManyToManyField(DispatchDetails)
+    def __str__(self):
+        return str(self.mf_id)
 
 
 class Reimburesement(models.Model):

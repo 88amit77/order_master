@@ -32,7 +32,9 @@ router.register('list_pod_list', views.ListRMPODlistViewSet, basename="list_pod_
 router.register('create_case_status', views.CreateordercasestatusViewSet, basename="create_case_status")
 router.register('list_case_status', views.ListordercasestatusViewSet, basename="list_case_status")
 
-# router.register('qty', views.ListordercasestatusQTYViewSet, basename="qty")
+# order mani fest
+router.register('create_manifest', views.CreateManiFestSerializer, basename="create_manifest")
+router.register('list_manifest', views.ManifestListSerializer, basename="list_manifest")
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -41,7 +43,5 @@ urlpatterns = [
     path('list_pod_list_search/', views.SearchListRMPODlistViewSet.as_view()),
     path('list_pod_Warehousewise_search/', views.SearchListRMPODlistWarehouseViewSet.as_view()),
     path('list_case_status_search/', views.SearchListordercasestatusViewSet.as_view()),
+    path('list_manifest_search/', views.SearchListManiFestViewSet.as_view()),
 ]
-
-
-

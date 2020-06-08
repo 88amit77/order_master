@@ -20,6 +20,8 @@ updateCancelBinIdSerializer,
 ReturnManagementPODListSerializer,
 CreateCaseStatusSerializer,
 CaseStatusListSerializer,
+CreateManiFestSerializer,
+ManifestListSerializer,
  )
 import requests
 from django.db.models import Q
@@ -307,6 +309,47 @@ class CustomCaseStatusPagination(PageNumberPagination):
             'results': data
         })
 
+class CustomManiFestPagination(PageNumberPagination):
+    page = DEFAULT_PAGE
+    page_size = 20
+    page_size_query_param = 'page_size'
+
+    def get_paginated_response(self, data):
+        return Response({
+            'links': {
+                'next': self.get_next_link(),
+                'previous': self.get_previous_link()
+            },
+            'total': self.page.paginator.count,
+            'page': int(self.request.GET.get('page', DEFAULT_PAGE)),
+            'page_size': int(self.request.GET.get('page_size', self.page_size)),
+            'UI_data': {
+                'sticky_headers': [
+                    'mf_id',
+
+                ],
+                'header': {
+                    'mf_id':'Manifest Id',
+                    'courier_partner':'Courier',
+                    'created_date':'Date',
+                    'quantity':'Quantity',
+
+                   },
+                'sortable': [
+                    'mf_id',
+                ],
+                'searchable': [
+                     'mf_id',
+                    'courier_partner',
+                    'created_date',
+                    'created_date',
+                    'quantity',
+                ],
+
+            },
+            'results': data
+        })
+
 
 class NewOrderViewSet(viewsets.ModelViewSet):
     queryset = NewOrder.objects.all()
@@ -469,9 +512,36 @@ class SearchListordercasestatusViewSet(generics.ListCreateAPIView):
 
 
 
-# class ListordercasestatusQTYViewSet(viewsets.ModelViewSet):
-#
-#     queryset = Reimbursement.objects.all()
-#     serializer_class = CaseStatusListSerializer
-#     pagination_class = CustomCaseStatusPagination
+class CreateManiFestViewSet(viewsets.ModelViewSet):
+    queryset = ManiFest.objects.all()
+    serializer_class = CreateManiFestSerializer
+
+class ListManiFestViewSet(viewsets.ViewSet):
+    def create(self, request):
+        queryset = ManiFest.objects.all()
+        serializer = ManifestListSerializer(queryset, many=True)
+        if len(queryset) > 0:
+            paginator = CustomManiFestPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            serializer = ManifestListSerializer(result_page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        else:
+            paginator = CustomManiFestPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            return paginator.get_paginated_response(result_page)
+
+
+class SearchListManiFestViewSet(generics.ListCreateAPIView):
+    search_fields = [
+                    'mf_id',
+                    'courier_partner',
+                    'created_date',
+                    'created_date',
+                    'quantity',
+                     ]
+    ordering_fields = ['mf_id',]
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    queryset = ManiFest.objects.all()
+    serializer_class = CreateManiFestSerializer
+    pagination_class = CustomManiFestPagination
 
