@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import filters
-from .models import ManiFest, PODList, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable
+from .models import ManiFest, PODList, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable, Reimbursement
 
 from .serializers import (
      NewOrderSerializer,
@@ -18,9 +18,9 @@ OrderViewNewOrderSerializer,
 updateBinIdSerializer,
 updateCancelBinIdSerializer,
 ReturnManagementPODListSerializer,
-
-
-                          )
+CreateCaseStatusSerializer,
+CaseStatusListSerializer,
+ )
 import requests
 from django.db.models import Q
 from rest_framework.pagination import PageNumberPagination
@@ -264,6 +264,49 @@ class CustomRMPODListWHPagination(PageNumberPagination):
             'results': data
         })
 
+class CustomCaseStatusPagination(PageNumberPagination):
+    page = DEFAULT_PAGE
+    page_size = 20
+    page_size_query_param = 'page_size'
+
+    def get_paginated_response(self, data):
+        return Response({
+            'links': {
+                'next': self.get_next_link(),
+                'previous': self.get_previous_link()
+            },
+            'total': self.page.paginator.count,
+            'page': int(self.request.GET.get('page', DEFAULT_PAGE)),
+            'page_size': int(self.request.GET.get('page_size', self.page_size)),
+            'UI_data': {
+                'sticky_headers': [
+                    'case_id',
+
+                ],
+                'header': {
+                    # 'rr_id' : 'RR ID',
+                    # 'dd_id' : 'DD ID',
+                    'case_id' : 'Case ID',
+                    'status_of_case':'Status Of Case',
+                    # 'case_content' :'Case Content',
+                    # 'case_reply':'Case Reply',
+                    'reimbursement_amount' :'Reimbursement Amount',
+                    'quantity':'Quantity',
+
+                   },
+                'sortable': [
+                    'case_id',
+                ],
+                'searchable': [
+                    'case_id',
+                    'status_of_case',
+                    'reimbursement_amount',
+                ],
+
+            },
+            'results': data
+        })
+
 
 class NewOrderViewSet(viewsets.ModelViewSet):
     queryset = NewOrder.objects.all()
@@ -390,4 +433,45 @@ class SearchListRMPODlistWarehouseViewSet(generics.ListCreateAPIView):
     queryset = PODList.objects.all()
     serializer_class = PODListSerializer
     pagination_class = CustomRMPODListWHPagination
+
+
+#order case status
+class CreateordercasestatusViewSet(viewsets.ModelViewSet):
+    queryset = Reimbursement.objects.all()
+    serializer_class = CreateCaseStatusSerializer
+
+class ListordercasestatusViewSet(viewsets.ViewSet):
+    def create(self, request):
+        queryset = Reimbursement.objects.all()
+        serializer = CaseStatusListSerializer(queryset, many=True)
+        if len(queryset) > 0:
+            paginator = CustomCaseStatusPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            serializer = CaseStatusListSerializer(result_page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        else:
+            paginator = CustomCaseStatusPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            return paginator.get_paginated_response(result_page)
+
+
+class SearchListordercasestatusViewSet(generics.ListCreateAPIView):
+    search_fields = [
+                    'case_id',
+                    'status_of_case',
+                    'reimbursement_amount',
+                     ]
+    ordering_fields = ['case_id',]
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    queryset = Reimbursement.objects.all()
+    serializer_class = CreateCaseStatusSerializer
+    pagination_class = CustomCaseStatusPagination
+
+
+
+# class ListordercasestatusQTYViewSet(viewsets.ModelViewSet):
+#
+#     queryset = Reimbursement.objects.all()
+#     serializer_class = CaseStatusListSerializer
+#     pagination_class = CustomCaseStatusPagination
 

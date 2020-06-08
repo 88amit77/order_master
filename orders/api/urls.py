@@ -28,7 +28,11 @@ router.register('update_cancel_bin_id', views.updateCancelBinIdViewSet, basename
 router.register('create_pod_list', views.CreateRMPODlistViewSet, basename="create_pod_list")
 router.register('list_pod_list', views.ListRMPODlistViewSet, basename="list_pod_list")
 
+#order case status
+router.register('create_case_status', views.CreateordercasestatusViewSet, basename="create_case_status")
+router.register('list_case_status', views.ListordercasestatusViewSet, basename="list_case_status")
 
+# router.register('qty', views.ListordercasestatusQTYViewSet, basename="qty")
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -36,8 +40,7 @@ urlpatterns = [
     path('order_view_search/', views.OrderViewSearchAPIView.as_view()),
     path('list_pod_list_search/', views.SearchListRMPODlistViewSet.as_view()),
     path('list_pod_Warehousewise_search/', views.SearchListRMPODlistWarehouseViewSet.as_view()),
-
-
+    path('list_case_status_search/', views.SearchListordercasestatusViewSet.as_view()),
 ]
 
 

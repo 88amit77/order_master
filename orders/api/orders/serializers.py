@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PODList, ManiFest, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable
+from .models import PODList, ManiFest, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable, Reimbursement
 
 
 
@@ -131,3 +131,25 @@ class ReturnManagementPODListSerializer(serializers.ModelSerializer):
     class Meta:
         model = PODList
         fields = ('pod_id', 'pod_number', 'courier_partner_name', 'pod_image_list', 'total_quantity_received')
+
+
+#order case status
+class CreateCaseStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reimbursement
+        fields ='__all__'
+
+
+class CaseStatusListSerializer(serializers.ModelSerializer):
+    quantity = serializers.SerializerMethodField(method_name='get_data')
+    class Meta:
+         model = Reimbursement
+         #fields =('case_id', 'status_of_case', 'reimbursement_amount', 'quantity', 'dd_id')
+
+         fields = ('case_id', 'status_of_case', 'reimbursement_amount', 'quantity')
+
+    def get_data(self, obj):
+
+        c = 200
+        return c
+        #return obj.dd_id.count()

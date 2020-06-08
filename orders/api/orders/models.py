@@ -74,6 +74,15 @@ class Reimburesement(models.Model):
     reimbursement_amount = models.FloatField()
 
 
+class Reimbursement(models.Model):
+    rr_id = models.AutoField(primary_key=True)
+    dd_id = models.ManyToManyField(NewOrder, related_name='reimbursements', null=True, blank=True)
+    case_id = models.CharField(max_length=20)
+    status_of_case = models.CharField(max_length=20)
+    case_content = models.CharField(max_length=20)
+    case_reply = models.CharField(max_length=20)
+    reimbursement_amount = models.FloatField()
+
 class PODList(models.Model):
     pod_id = models.AutoField(primary_key=True)
     pod_number = models.CharField(max_length=20)
