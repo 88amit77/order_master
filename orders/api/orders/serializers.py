@@ -146,9 +146,9 @@ class CaseStatusListSerializer(serializers.ModelSerializer):
          model = Reimbursement
          #fields =('case_id', 'status_of_case', 'reimbursement_amount', 'quantity', 'dd_id')
 
-         fields = ('rr_id', 'dd_id', 'case_id', 'status_of_case', 'reimbursement_amount', 'quantity')
+         fields = ('rr_id', 'case_id', 'status_of_case', 'reimbursement_amount', 'quantity')
 
-   
+
 
 def get_data(self, obj):
 
