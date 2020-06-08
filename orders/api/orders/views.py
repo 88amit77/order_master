@@ -511,7 +511,7 @@ class SearchListordercasestatusViewSet(generics.ListCreateAPIView):
     pagination_class = CustomCaseStatusPagination
 
 
-
+#manifest
 class CreateManiFestViewSet(viewsets.ModelViewSet):
     queryset = ManiFest.objects.all()
     serializer_class = CreateManiFestSerializer

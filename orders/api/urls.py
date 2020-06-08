@@ -33,8 +33,8 @@ router.register('create_case_status', views.CreateordercasestatusViewSet, basena
 router.register('list_case_status', views.ListordercasestatusViewSet, basename="list_case_status")
 
 # order mani fest
-router.register('create_manifest', views.CreateManiFestSerializer, basename="create_manifest")
-router.register('list_manifest', views.ManifestListSerializer, basename="list_manifest")
+router.register('create_manifest', views.CreateManiFestViewSet, basename="create_manifest")
+router.register('list_manifest', views.ListManiFestViewSet, basename="list_manifest")
 
 urlpatterns = [
     path('', include(router.urls)),
