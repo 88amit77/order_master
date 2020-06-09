@@ -162,6 +162,12 @@ class CaseStatusListSerializer(serializers.ModelSerializer):
             #return obj.dd_id.count()
 
 #order manifest page
+class DispathSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =DispatchDetails
+        fields =('dipatch_details_id', 'dd_id', 'awb',)
+
+
 class CreateManiFestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ManiFest

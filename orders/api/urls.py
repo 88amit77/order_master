@@ -44,5 +44,6 @@ urlpatterns = [
     path('list_pod_Warehousewise_search/', views.SearchListRMPODlistWarehouseViewSet.as_view()),
     path('case_status_data_match_search/', views.NewOrderCaseStatusSearchViewSet.as_view()),
     path('list_case_status_search/', views.SearchListordercasestatusViewSet.as_view()),
+    path('manifest_data_match_search/', views.NewOrderManifestSearchViewSet.as_view()),
     path('list_manifest_search/', views.SearchListManiFestViewSet.as_view()),
 ]

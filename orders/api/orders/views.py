@@ -23,6 +23,7 @@ CaseStatusListSerializer,
 CreateManiFestSerializer,
 ManifestListSerializer,
 NewOrderCaseStatusSearchSerializer,
+DispathSerializer,
  )
 import requests
 from django.db.models import Q
@@ -521,6 +522,12 @@ class SearchListordercasestatusViewSet(generics.ListCreateAPIView):
 
 
 #manifest
+class NewOrderManifestSearchViewSet(generics.ListCreateAPIView):
+    search_fields = ['=awb']
+    filter_backends = (filters.SearchFilter,)
+    queryset = DispatchDetails.objects.all()
+    serializer_class = DispathSerializer
+
 class CreateManiFestViewSet(viewsets.ModelViewSet):
     queryset = ManiFest.objects.all()
     serializer_class = CreateManiFestSerializer
