@@ -9,7 +9,7 @@ from django.urls import path, include
 
 router = DefaultRouter()
 schema_view = get_schema_view(openapi.Info(
-      title="<Instance Name> API",
+      title="Orders API",
       default_version='v1',
       description="Test description",
    ), public=True, permission_classes=(permissions.AllowAny,))
