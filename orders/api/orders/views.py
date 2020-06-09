@@ -552,7 +552,7 @@ class SearchListManiFestViewSet(generics.ListCreateAPIView):
                     'mf_id',
                     'courier_partner',
                     'created_date',
-                    'quantity',
+
                      ]
     ordering_fields = ['mf_id',]
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
