@@ -134,6 +134,11 @@ class ReturnManagementPODListSerializer(serializers.ModelSerializer):
 
 
 #order case status
+class NewOrderCaseStatusSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewOrder
+        fields =('buymore_order_id', 'dd_id', 'order_id', 'order_item_id', 'qty')
+
 class CreateCaseStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reimbursement

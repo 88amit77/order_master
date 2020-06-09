@@ -42,6 +42,7 @@ urlpatterns = [
     path('order_view_search/', views.OrderViewSearchAPIView.as_view()),
     path('list_pod_list_search/', views.SearchListRMPODlistViewSet.as_view()),
     path('list_pod_Warehousewise_search/', views.SearchListRMPODlistWarehouseViewSet.as_view()),
+    path('case_status_data_match_search/', views.NewOrderCaseStatusSearchViewSet.as_view()),
     path('list_case_status_search/', views.SearchListordercasestatusViewSet.as_view()),
     path('list_manifest_search/', views.SearchListManiFestViewSet.as_view()),
 ]

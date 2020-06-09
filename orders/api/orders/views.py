@@ -22,6 +22,7 @@ CreateCaseStatusSerializer,
 CaseStatusListSerializer,
 CreateManiFestSerializer,
 ManifestListSerializer,
+NewOrderCaseStatusSearchSerializer,
  )
 import requests
 from django.db.models import Q
@@ -479,6 +480,14 @@ class SearchListRMPODlistWarehouseViewSet(generics.ListCreateAPIView):
 
 
 #order case status
+class NewOrderCaseStatusSearchViewSet(generics.ListCreateAPIView):
+    search_fields = [
+                    '=order_id', '=order_item_id',
+                     ]
+    filter_backends = (filters.SearchFilter,)
+    queryset = NewOrder.objects.all()
+    serializer_class = NewOrderCaseStatusSearchSerializer
+
 class CreateordercasestatusViewSet(viewsets.ModelViewSet):
     queryset = Reimbursement.objects.all()
     serializer_class = CreateCaseStatusSerializer
