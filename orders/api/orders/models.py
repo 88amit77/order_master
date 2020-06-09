@@ -61,7 +61,7 @@ class ManiFest(models.Model):
     mf_id = models.AutoField(primary_key=True)
     courier_partner = models.CharField(max_length=20)
     mf_sheet = models.URLField(null=True, blank=True)
-    created_date = models.DateField()
+    created_date = models.DateField(auto_now_add=True)
     awb = models.ManyToManyField(DispatchDetails)
     def __str__(self):
         return str(self.mf_id)
