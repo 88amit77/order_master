@@ -52,4 +52,5 @@ urlpatterns = [
     path('list_case_status_search/', views.SearchListordercasestatusViewSet.as_view()),
     path('manifest_data_match_search/', views.NewOrderManifestSearchViewSet.as_view()),
     path('list_manifest_search/', views.SearchListManiFestViewSet.as_view()),
+    path('order_id_search/', views.SearchOrderIDViewSet.as_view()),
 ]

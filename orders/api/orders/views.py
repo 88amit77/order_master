@@ -560,3 +560,10 @@ class SearchListManiFestViewSet(generics.ListCreateAPIView):
     serializer_class = ManifestListSerializer
     pagination_class = CustomManiFestPagination
 
+#customise search and date filter api for new order
+class SearchOrderIDViewSet(generics.ListCreateAPIView):
+    search_fields = ['=order_id']
+    filter_backends = (filters.SearchFilter, )
+    queryset = NewOrder.objects.all()
+    serializer_class = NewOrderSerializer
+
