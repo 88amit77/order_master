@@ -567,3 +567,24 @@ class SearchOrderIDViewSet(generics.ListCreateAPIView):
     queryset = NewOrder.objects.all()
     serializer_class = NewOrderSerializer
 
+from rest_framework.viewsets import ViewSet
+from .filters import OrderDateFilter, DispatchByDateFilter
+
+
+class OrderDateFilterViewSet(ViewSet):
+    """
+    how use query parameter
+    http://127.0.0.1:8000/neworder2/dispatch_by_date_filter/?dispatch_by_date_after=2001-02-01&dispatch_by_date_before=2020-02-02
+    """
+    def list(self, request):
+        queryset = NewOrder.objects.all()
+        queryset = OrderDateFilter(data=request.GET, queryset=queryset, request=request).qs
+        serializer = NewOrderSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+class DispatchByDateFilterViewSet(ViewSet):
+    def list(self, request):
+        queryset = NewOrder.objects.all()
+        queryset = DispatchByDateFilter(data=request.GET, queryset=queryset, request=request).qs
+        serializer = NewOrderSerializer(queryset, many=True)
+        return Response(serializer.data)

@@ -41,6 +41,9 @@ router.register('list_case_status', views.ListordercasestatusViewSet, basename="
 # order mani fest
 router.register('create_manifest', views.CreateManiFestViewSet, basename="create_manifest")
 router.register('list_manifest', views.ListManiFestViewSet, basename="list_manifest")
+#for separate  date filter
+router.register(r'^order_date_filter',views.OrderDateFilterViewSet,basename='order_date_filter')
+router.register(r'^dispatch_by_date_filter',views.DispatchByDateFilterViewSet,basename='dispatch_by_date_filter')
 
 urlpatterns = [
     path('', include(router.urls)),
