@@ -202,8 +202,8 @@ class RefundImageTableSerializer1(serializers.ModelSerializer):
         fields = ("product_condition", "package_condition", 'image_correctness', 'image_list')
 
 class OrderReturnSerializer(serializers.Serializer):
-    # buymore_order_id = serializers.AutoField(primary_key=True)
-    # dd_id = serializers.IntegerField()
+    buymore_order_id = serializers.IntegerField()
+    dd_id = serializers.IntegerField()
     product_id = serializers.IntegerField()
     order_id = serializers.IntegerField()
     order_item_id = serializers.IntegerField()

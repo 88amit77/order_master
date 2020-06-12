@@ -405,6 +405,19 @@ class CustomOrderReturnPagination(PageNumberPagination):
                                 'dispatch_by_date',
                                 'portal_sku',
                                 'warehouse_id',
+                                'cancel_inward_bin',
+                                 'courier_partner',
+                                'return_request_date',
+                                'actual_return_date',
+                                'return_reason',
+                                'sub_reason',
+                                'awb',
+                                'pod_id',
+                                'return_type',
+                                'product_condition',
+                                'package_condition',
+                                'image_correctness',
+                                'image_list',
                               ],
 
             },
@@ -662,3 +675,30 @@ class ListOrderReturnViewSet(viewsets.ViewSet):
             result_page = paginator.paginate_queryset(queryset, request)
             return paginator.get_paginated_response(result_page)
 
+class updateIdViewSet(viewsets.ModelViewSet):
+    search_fields = [
+        'order_id',
+        'order_item_id',
+        'order_date',
+        'dispatch_by_date',
+        'portal_sku',
+        'warehouse_id',
+        'dd_dispatchdetailss__cancel_inward_bin',
+        'dd_dispatchdetailss__courier_partner',
+        'dd_fullfilledreturn__return_request_date',
+        'dd_fullfilledreturn__actual_return_date',
+        'dd_fullfilledreturn__return_reason',
+        'dd_fullfilledreturn__sub_reason',
+        'dd_fullfilledreturn__awb',
+        'dd_fullfilledreturn__pod_id',
+        'dd_fullfilledreturn__return_type',
+        'dd_refundimagetable__product_condition',
+        'dd_refundimagetable__package_condition',
+        'dd_refundimagetable__image_correctness',
+        'dd_refundimagetable__image_list',
+    ]
+    ordering_fields = ['order_id']
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    queryset = NewOrder.objects.all()
+    serializer_class = OrderReturnSerializer
+    pagination_class = CustomOrderReturnPagination

@@ -47,6 +47,7 @@ router.register(r'^dispatch_by_date_filter',views.DispatchByDateFilterViewSet,ba
 
 #order_return
 router.register('list_order_return', views.ListOrderReturnViewSet, basename="list_order_return")
+router.register('update_search_order_return', views.updateIdViewSet, basename='update_search_order_return')
 
 urlpatterns = [
     path('', include(router.urls)),
