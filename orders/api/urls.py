@@ -45,6 +45,9 @@ router.register('list_manifest', views.ListManiFestViewSet, basename="list_manif
 router.register(r'^order_date_filter',views.OrderDateFilterViewSet,basename='order_date_filter')
 router.register(r'^dispatch_by_date_filter',views.DispatchByDateFilterViewSet,basename='dispatch_by_date_filter')
 
+#order_return
+router.register('list_order_return', views.ListOrderReturnViewSet, basename="list_order_return")
+
 urlpatterns = [
     path('', include(router.urls)),
     path("orders_docs/", schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

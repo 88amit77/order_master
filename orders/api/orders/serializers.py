@@ -183,3 +183,84 @@ class ManifestListSerializer(serializers.ModelSerializer):
 
         c = 200
         return c
+
+#order return
+class DispatchDetailsSerializer1(serializers.ModelSerializer):
+    class Meta:
+        model = DispatchDetails
+        fields = ("cancel_inward_bin","courier_partner")
+
+class FulfilledReturnSerializer1(serializers.ModelSerializer):
+    class Meta:
+        model = FulfilledReturn
+        fields = ("return_request_date", "actual_return_date", 'return_reason', 'sub_reason', 'awb', 'pod_id', 'return_type')
+
+
+class RefundImageTableSerializer1(serializers.ModelSerializer):
+    class Meta:
+        model = RefundImageTable
+        fields = ("product_condition", "package_condition", 'image_correctness', 'image_list')
+
+class OrderReturnSerializer(serializers.Serializer):
+    # buymore_order_id = serializers.AutoField(primary_key=True)
+    # dd_id = serializers.IntegerField()
+    product_id = serializers.IntegerField()
+    order_id = serializers.IntegerField()
+    order_item_id = serializers.IntegerField()
+    order_date = serializers.DateField()
+    dispatch_by_date = serializers.DateField()
+    portal_sku = serializers.CharField(max_length=30)
+    warehouse_id = serializers.IntegerField()
+
+    dd_dispatchdetailss = DispatchDetailsSerializer1(many=True)
+    dd_fullfilledreturn = FulfilledReturnSerializer1(many=True)
+    dd_refundimagetable = RefundImageTableSerializer(many=True)
+
+
+    def update(self, instance, validated_data):
+        dd_dispatchdetailss_data = validated_data.pop('dd_dispatchdetailss')
+        dd_id = (instance.dd_dispatchdetailss).all()
+        dd_id1 = list(dd_id)
+
+        dd_fullfilledreturn_data = validated_data.pop('dd_fullfilledreturn')
+        dd_id = (instance.dd_fullfilledreturn).all()
+        dd_id2 = list(dd_id)
+
+        dd_refundimagetable_data = validated_data.pop('dd_refundimagetable')
+        dd_id = (instance.dd_refundimagetable).all()
+        dd_id = list(dd_id)
+
+        instance.product_id = validated_data.get('product_id', instance.product_id)
+        instance.order_id = validated_data.get('order_id', instance.order_id)
+        instance.order_item_id = validated_data.get('order_item_id', instance.order_item_id)
+        instance.order_date = validated_data.get('order_date', instance.order_date)
+        instance.dispatch_by_date = validated_data.get('dispatch_by_date', instance.dispatch_by_date)
+        instance.portal_sku = validated_data.get('portal_sku', instance.portal_sku)
+        instance.warehouse_id = validated_data.get('warehouse_id', instance.warehouse_id)
+        instance.save()
+
+        for dd_dispatchdetail_data in dd_dispatchdetailss_data:
+            dd_idd = dd_id1.pop(0)
+            dd_idd.cancel_inward_bin = dd_dispatchdetail_data.get('cancel_inward_bin', dd_idd.cancel_inward_bin)
+            dd_idd.courier_partner = dd_dispatchdetail_data.get('courier_partner', dd_idd.courier_partner)
+            dd_idd.save()
+
+        for dd_fullfilledreturnn_data in dd_fullfilledreturn_data:
+            dd_idd = dd_id2.pop(0)
+            dd_idd.return_request_date = dd_fullfilledreturnn_data.get('return_request_date', dd_idd.return_request_date)
+            dd_idd.actual_return_date = dd_fullfilledreturnn_data.get('actual_return_date', dd_idd.actual_return_date)
+            dd_idd.return_reason = dd_fullfilledreturnn_data.get('return_reason', dd_idd.return_reason)
+            dd_idd.sub_reason = dd_fullfilledreturnn_data.get('sub_reason', dd_idd.sub_reason)
+            dd_idd.awb = dd_fullfilledreturnn_data.get('awb', dd_idd.awb)
+            dd_idd.pod_id = dd_fullfilledreturnn_data.get('pod_id', dd_idd.pod_id)
+            dd_idd.return_type = dd_fullfilledreturnn_data.get('return_type', dd_idd.return_type)
+            dd_idd.save()
+
+        for dd_refundimagetablee_data in dd_refundimagetable_data:
+            dd_idd = dd_id.pop(0)
+            dd_idd.product_condition = dd_refundimagetablee_data.get('product_condition', dd_idd.product_condition)
+            dd_idd.package_condition = dd_refundimagetablee_data.get('package_condition', dd_idd.package_condition)
+            dd_idd.image_correctness = dd_refundimagetablee_data.get('image_correctness', dd_idd.image_correctness)
+            dd_idd.image_list = dd_refundimagetablee_data.get('image_list', dd_idd.image_list)
+            dd_idd.save()
+        return instance

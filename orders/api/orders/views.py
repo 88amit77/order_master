@@ -24,6 +24,7 @@ CreateManiFestSerializer,
 ManifestListSerializer,
 NewOrderCaseStatusSearchSerializer,
 DispathSerializer,
+OrderReturnSerializer,
  )
 import requests
 from django.db.models import Q
@@ -352,7 +353,63 @@ class CustomManiFestPagination(PageNumberPagination):
             'results': data
         })
 
+class CustomOrderReturnPagination(PageNumberPagination):
+    page = DEFAULT_PAGE
+    page_size = 20
+    page_size_query_param = 'page_size'
 
+    def get_paginated_response(self, data):
+        return Response({
+            'links': {
+                'next': self.get_next_link(),
+                'previous': self.get_previous_link()
+            },
+            'total': self.page.paginator.count,
+            'page': int(self.request.GET.get('page', DEFAULT_PAGE)),
+            'page_size': int(self.request.GET.get('page_size', self.page_size)),
+            'UI_data': {
+                # 'sticky_headers': [
+                #     'emp_id',
+                #     'name',
+                # ],
+                'header': {
+                    'order_id':'Order ID',
+                    'order_item_id' :'Order Item ID',
+                    'order_date':'Order Date',
+                    'dispatch_by_date' :'Dispatch By Date',
+                    'portal_sku':'Portal SKU',
+                    'warehouse_id': 'Warehouse ID',
+                    'cancel_inward_bin': 'Cancel Inward Bin',
+                    'courier_partner': 'Courier Partner Name',
+                    'return_request_date': 'Return Request Date',
+                    'actual_return_date': 'Actual Return Date',
+                    'return_reason': 'Return Reason',
+                    'sub_reason': 'Sub Reason',
+                    'awb': 'AWB',
+                    'pod_id': 'POD ID',
+                    'return_type': 'Return Type',
+                    'product_condition': 'Product Condition',
+                    'package_condition':'Package Condition',
+                    'image_correctness':'Image Correctness',
+                    'image_list': 'Image List',
+
+                   },
+                # 'sortable': [
+                #     'buymore_order_id',
+                #     'dd_id',
+                # ],
+                'searchable': [
+                                'order_id',
+                                'order_item_id',
+                                'order_date',
+                                'dispatch_by_date',
+                                'portal_sku',
+                                'warehouse_id',
+                              ],
+
+            },
+            'results': data
+        })
 class NewOrderViewSet(viewsets.ModelViewSet):
     queryset = NewOrder.objects.all()
     serializer_class = NewOrderSerializer
@@ -588,3 +645,20 @@ class DispatchByDateFilterViewSet(ViewSet):
         queryset = DispatchByDateFilter(data=request.GET, queryset=queryset, request=request).qs
         serializer = NewOrderSerializer(queryset, many=True)
         return Response(serializer.data)
+
+#order return page
+
+class ListOrderReturnViewSet(viewsets.ViewSet):
+    def create(self, request):
+        queryset = NewOrder.objects.all()
+        serializer = OrderReturnSerializer(queryset, many=True)
+        if len(queryset) > 0:
+            paginator = CustomOrderReturnPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            serializer = OrderReturnSerializer(result_page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        else:
+            paginator = CustomOrderReturnPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            return paginator.get_paginated_response(result_page)
+
