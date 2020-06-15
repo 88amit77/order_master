@@ -120,7 +120,7 @@ class FulfilledReturn(models.Model):
 class RefundImageTable(models.Model):
 
       dd_id = models.ForeignKey(NewOrder, on_delete=models.CASCADE, related_name='dd_refundimagetable', null=True, blank=True)
-      image_list = models.URLField()
+      image_list = models.URLField(blank=True, null=True)
       return_category = models.CharField(max_length=50)
       return_notes = models.CharField(max_length=50)
       tracking_id = models.PositiveIntegerField()
@@ -128,10 +128,10 @@ class RefundImageTable(models.Model):
       updated_at = models.DateTimeField(blank=True, null=True,)
       processing_date = models.DateTimeField(blank=True, null=True,)
       return_type = models.CharField(max_length=50)
-      package_condition = models.CharField(max_length=50)
+      package_condition = models.CharField(max_length=50,blank=True, null=True)
       is_barcode_required = models.BooleanField(default=False)
-      product_condition = models.CharField(max_length=50)
-      image_correctness = models.BooleanField(default=False)
+      product_condition = models.CharField(max_length=50, blank=True, null=True)
+      image_correctness = models.BooleanField(default=False, blank=True, null=True)
       size_correctness = models.BooleanField(default=False)
       alternate_product_id = models.PositiveIntegerField(blank=True, null=True,)
       sellable = models.BooleanField(default=False)
