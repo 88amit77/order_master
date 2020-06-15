@@ -214,7 +214,7 @@ class OrderReturnSerializer(serializers.Serializer):
 
     dd_dispatchdetailss = DispatchDetailsSerializer1(many=True)
     dd_fullfilledreturn = FulfilledReturnSerializer1(many=True)
-    dd_refundimagetable = RefundImageTableSerializer(many=True)
+    dd_refundimagetable = RefundImageTableSerializer1(many=True)
 
 
     def update(self, instance, validated_data):
