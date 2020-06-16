@@ -120,7 +120,7 @@ class FulfilledReturn(models.Model):
 class RefundImageTable(models.Model):
     dd_id = models.ForeignKey(NewOrder, on_delete=models.CASCADE, related_name='dd_refundimagetable', null=True,
                               blank=True)
-    image_list = models.FileField()
+    image_list = models.FileField(blank=True, null=True,)
     return_category = models.CharField(max_length=50, blank=True, null=True)
     return_notes = models.CharField(max_length=100)
     tracking_id = models.PositiveIntegerField()
