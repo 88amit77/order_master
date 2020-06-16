@@ -199,7 +199,7 @@ class FulfilledReturnSerializer1(serializers.ModelSerializer):
 class RefundImageTableSerializer1(serializers.ModelSerializer):
     class Meta:
         model = RefundImageTable
-        fields = ("product_condition", "package_condition", 'image_correctness', 'image_list')
+        fields = ("product_condition", "package_condition", 'image_correctness','size_correctness', 'image_list')
 
 class OrderReturnSerializer(serializers.Serializer):
     buymore_order_id = serializers.IntegerField()
@@ -261,6 +261,8 @@ class OrderReturnSerializer(serializers.Serializer):
             dd_idd.product_condition = dd_refundimagetablee_data.get('product_condition', dd_idd.product_condition)
             dd_idd.package_condition = dd_refundimagetablee_data.get('package_condition', dd_idd.package_condition)
             dd_idd.image_correctness = dd_refundimagetablee_data.get('image_correctness', dd_idd.image_correctness)
+            dd_idd.size_correctness = dd_refundimagetablee_data.get('size_correctness', dd_idd.size_correctness)
             dd_idd.image_list = dd_refundimagetablee_data.get('image_list', dd_idd.image_list)
             dd_idd.save()
         return instance
+

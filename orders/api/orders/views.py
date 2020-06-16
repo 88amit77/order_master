@@ -391,6 +391,7 @@ class CustomOrderReturnPagination(PageNumberPagination):
                     'product_condition': 'Product Condition',
                     'package_condition':'Package Condition',
                     'image_correctness':'Image Correctness',
+                    'size_correctness': 'Size Correctness',
                     'image_list': 'Image List',
 
                    },
@@ -695,6 +696,7 @@ class updateIdViewSet(viewsets.ModelViewSet):
         'dd_refundimagetable__product_condition',
         'dd_refundimagetable__package_condition',
         'dd_refundimagetable__image_correctness',
+        'dd_refundimagetable__size_correctness',
         'dd_refundimagetable__image_list',
     ]
     ordering_fields = ['order_id']
