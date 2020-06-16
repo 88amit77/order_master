@@ -268,3 +268,9 @@ class OrderReturnSerializer(serializers.Serializer):
             dd_idd.save()
         return instance
 
+#order return process page
+class OrderReturnProcessSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = RefundImageTable
+        fields = ("dd_id", "image_list", 'tracking_id', 'package_condition', 'product_condition',
+                  'image_correctness', 'size_correctness', 'alternate_product_id', 'return_notes')

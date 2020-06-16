@@ -25,6 +25,7 @@ ManifestListSerializer,
 NewOrderCaseStatusSearchSerializer,
 DispathSerializer,
 OrderReturnSerializer,
+OrderReturnProcessSerializers,
  )
 import requests
 from django.db.models import Q
@@ -706,3 +707,9 @@ class updateIdViewSet(viewsets.ModelViewSet):
     queryset = NewOrder.objects.all()
     serializer_class = OrderReturnSerializer
     pagination_class = CustomOrderReturnPagination
+
+
+#order return process page
+class OrderReturnProcessViewSet(viewsets.ModelViewSet):
+    queryset = RefundImageTable.objects.all()
+    serializer_class = OrderReturnProcessSerializers
