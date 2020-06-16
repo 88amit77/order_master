@@ -377,7 +377,7 @@ class CustomOrderReturnPagination(PageNumberPagination):
                     'order_item_id' :'Order Item ID',
                     'order_date':'Order Date',
                     'dispatch_by_date' :'Dispatch By Date',
-                    'portal_sku':'Portal SKU',
+
                     'warehouse_id': 'Warehouse ID',
                     'cancel_inward_bin': 'Cancel Inward Bin',
                     'courier_partner': 'Courier Partner Name',
@@ -392,11 +392,12 @@ class CustomOrderReturnPagination(PageNumberPagination):
                     'package_condition':'Package Condition',
                     'image_correctness':'Image Correctness',
                     'size_correctness': 'Size Correctness',
+                    'alternate_product_id':'Alternate Product_id',
                     'image_list': 'Image List',
 
                    },
                 # 'sortable': [
-                #     'buymore_order_id',
+                #
                 #     'dd_id',
                 # ],
                 'searchable': [
@@ -419,6 +420,7 @@ class CustomOrderReturnPagination(PageNumberPagination):
                                 'package_condition',
                                 'image_correctness',
                                 'image_list',
+                                'alternate_product_id',
                               ],
 
             },
@@ -682,7 +684,6 @@ class updateIdViewSet(viewsets.ModelViewSet):
         'order_item_id',
         'order_date',
         'dispatch_by_date',
-        'portal_sku',
         'warehouse_id',
         'dd_dispatchdetailss__cancel_inward_bin',
         'dd_dispatchdetailss__courier_partner',
@@ -697,7 +698,8 @@ class updateIdViewSet(viewsets.ModelViewSet):
         'dd_refundimagetable__package_condition',
         'dd_refundimagetable__image_correctness',
         'dd_refundimagetable__size_correctness',
-        'dd_refundimagetable__image_list',
+        'dd_refundimagetable__alternate_product_id',
+         'dd_refundimagetable__image_list',
     ]
     ordering_fields = ['order_id']
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)

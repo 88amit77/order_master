@@ -188,7 +188,7 @@ class ManifestListSerializer(serializers.ModelSerializer):
 class DispatchDetailsSerializer1(serializers.ModelSerializer):
     class Meta:
         model = DispatchDetails
-        fields = ("cancel_inward_bin","courier_partner")
+        fields = ("cancel_inward_bin", "courier_partner")
 
 class FulfilledReturnSerializer1(serializers.ModelSerializer):
     class Meta:
@@ -199,7 +199,7 @@ class FulfilledReturnSerializer1(serializers.ModelSerializer):
 class RefundImageTableSerializer1(serializers.ModelSerializer):
     class Meta:
         model = RefundImageTable
-        fields = ("product_condition", "package_condition", 'image_correctness','size_correctness', 'image_list')
+        fields = ("product_condition", "package_condition", 'image_correctness', 'size_correctness', 'alternate_product_id','image_list')
 
 class OrderReturnSerializer(serializers.Serializer):
     buymore_order_id = serializers.IntegerField()
@@ -209,7 +209,7 @@ class OrderReturnSerializer(serializers.Serializer):
     order_item_id = serializers.IntegerField()
     order_date = serializers.DateField()
     dispatch_by_date = serializers.DateField()
-    portal_sku = serializers.CharField(max_length=30)
+    # portal_sku = serializers.CharField(max_length=30)
     warehouse_id = serializers.IntegerField()
 
     dd_dispatchdetailss = DispatchDetailsSerializer1(many=True)
@@ -235,7 +235,7 @@ class OrderReturnSerializer(serializers.Serializer):
         instance.order_item_id = validated_data.get('order_item_id', instance.order_item_id)
         instance.order_date = validated_data.get('order_date', instance.order_date)
         instance.dispatch_by_date = validated_data.get('dispatch_by_date', instance.dispatch_by_date)
-        instance.portal_sku = validated_data.get('portal_sku', instance.portal_sku)
+        #instance.portal_sku = validated_data.get('portal_sku', instance.portal_sku)
         instance.warehouse_id = validated_data.get('warehouse_id', instance.warehouse_id)
         instance.save()
 
@@ -262,6 +262,8 @@ class OrderReturnSerializer(serializers.Serializer):
             dd_idd.package_condition = dd_refundimagetablee_data.get('package_condition', dd_idd.package_condition)
             dd_idd.image_correctness = dd_refundimagetablee_data.get('image_correctness', dd_idd.image_correctness)
             dd_idd.size_correctness = dd_refundimagetablee_data.get('size_correctness', dd_idd.size_correctness)
+            dd_idd.alternate_product_id = dd_refundimagetablee_data.get('alternate_product_id', dd_idd.alternate_product_id)
+
             dd_idd.image_list = dd_refundimagetablee_data.get('image_list', dd_idd.image_list)
             dd_idd.save()
         return instance
