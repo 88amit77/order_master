@@ -51,7 +51,7 @@ class CustomOrderPagination(PageNumberPagination):
                     'name',
                 ],
                 'header': {
-                    'buymore_order_id':'Buymore Order ID',
+                    # 'buymore_order_id':'Buymore Order ID',
                     'dd_id':'DD ID',
                     'product_id':'Product ID',
                     'order_id':'Order ID',
@@ -105,7 +105,7 @@ class CustomOrderSearchPagination(PageNumberPagination):
                     'name',
                 ],
                 'header': {
-                    'buymore_order_id':'Buymore Order ID',
+                    # 'buymore_order_id':'Buymore Order ID',
                     'dd_id':'DD ID',
                     'product_id':'Product ID',
                     'order_id':'Order ID',
@@ -131,11 +131,11 @@ class CustomOrderSearchPagination(PageNumberPagination):
                     'reimbursement_amount':'Reimburesement Amount',
                    },
                 'sortable': [
-                    'buymore_order_id',
+                    # 'buymore_order_id',
                     'dd_id',
                 ],
                 'searchable': [
-                    'buymore_order_id',
+                    # 'buymore_order_id',
                     'dd_id',
                     'product_id',
                     'order_id',
@@ -492,7 +492,7 @@ class updateCancelBinIdViewSet(viewsets.ModelViewSet):
 
 
 class OrderViewSearchAPIView(generics.ListCreateAPIView):
-    search_fields = [ 'buymore_order_id', 'dd_id', 'product_id', 'order_id',
+    search_fields = [ 'dd_id', 'product_id', 'order_id',
     'order_item_id', 'order_date', 'dispatch_by_date', 'portal_id', 'portal_sku',
     'qty', 'selling_price', 'mrp', 'tax_rate', 'warehouse_id', 'region', 'payment_method'
    ]

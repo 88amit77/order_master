@@ -69,7 +69,7 @@ class OrderViewNewOrderSerializer(serializers.ModelSerializer):
     dd_reimburesements = OrderViewReimburesementSerializer(many=True)
     class Meta:
         model = NewOrder
-        fields = ('buymore_order_id', 'dd_id', 'product_id', 'order_id', 'order_item_id', 'order_date',
+        fields = ('dd_id', 'product_id', 'order_id', 'order_item_id', 'order_date',
                   'dispatch_by_date', 'portal_id', 'portal_sku', 'qty', 'selling_price', 'mrp', 'tax_rate', 'warehouse_id',
                   'region', 'payment_method', 'dd_dispatchdetailss', 'dd_fullfilledreturn', 'dd_reimburesements')
 
@@ -90,7 +90,7 @@ class updateBinIdSerializer(serializers.Serializer):
 
     class Meta:
         model = NewOrder
-        fields = ('buymore_order_id', 'dd_dispatchdetailss')
+        fields = ('dd_dispatchdetailss',)
 
     def update(self, instance, validated_data):
 
@@ -111,7 +111,7 @@ class updateCancelBinIdSerializer(serializers.Serializer):
 
     class Meta:
         model = NewOrder
-        fields = ('buymore_order_id', 'dd_dispatchdetailss')
+        fields = ('dd_dispatchdetailss',)
 
     def update(self, instance, validated_data):
 
@@ -137,7 +137,7 @@ class ReturnManagementPODListSerializer(serializers.ModelSerializer):
 class NewOrderCaseStatusSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewOrder
-        fields =('buymore_order_id', 'dd_id', 'order_id', 'order_item_id', 'qty')
+        fields =('dd_id', 'order_id', 'order_item_id', 'qty')
 
 class CreateCaseStatusSerializer(serializers.ModelSerializer):
     class Meta:
@@ -202,7 +202,7 @@ class RefundImageTableSerializer1(serializers.ModelSerializer):
         fields = ("product_condition", "package_condition", 'image_correctness', 'size_correctness', 'alternate_product_id','image_list')
 
 class OrderReturnSerializer(serializers.Serializer):
-    buymore_order_id = serializers.IntegerField()
+    # buymore_order_id = serializers.IntegerField()
     dd_id = serializers.IntegerField()
     product_id = serializers.IntegerField()
     order_id = serializers.IntegerField()

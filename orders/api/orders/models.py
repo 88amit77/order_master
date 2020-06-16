@@ -4,8 +4,8 @@ from django.db import models
 
 
 class NewOrder(models.Model):
-    buymore_order_id = models.AutoField(primary_key=True)
-    dd_id = models.IntegerField()
+   # buymore_order_id = models.AutoField(primary_key=True)
+    dd_id = models.AutoField(primary_key=True)
     product_id = models.IntegerField()
     order_id = models.IntegerField()
     order_item_id = models.IntegerField()
