@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import PODList, ManiFest, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable, Reimbursement
+from .models import (PODList, ManiFest, NewOrder, Reimburesement, DispatchDetails,
+                    FulfilledReturn, RefundImageTable, Reimbursement,TestingNames,TestingStatus)
 
 
 
@@ -274,3 +275,23 @@ class OrderReturnProcessSerializers(serializers.ModelSerializer):
         model = RefundImageTable
         fields = ("dd_id", "image_list", 'tracking_id', 'package_condition', 'product_condition','return_category','created_at',
                   'is_barcode_required', 'image_correctness', 'size_correctness', 'alternate_product_id', 'return_notes')
+
+#for API testing
+class TestingNamesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TestingNames
+        fields = '__all__'
+
+class TestingStatusSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TestingStatus
+        fields = '__all__'
+
+
+class ListTestingNames1Serializer(serializers.ModelSerializer):
+    testing_statuss = TestingStatusSerializer(many=True)
+    class Meta:
+        model = TestingNames
+        fields = ('tn_id', 'tn_name', 'average_time', 'tn_cron_code', 'tn_type', 'testing_statuss')

@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import filters
-from .models import ManiFest, PODList, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable, Reimbursement
+from .models import ManiFest, PODList, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable, Reimbursement, TestingStatus,TestingNames
 
 from .serializers import (
      NewOrderSerializer,
@@ -26,6 +26,9 @@ NewOrderCaseStatusSearchSerializer,
 DispathSerializer,
 OrderReturnSerializer,
 OrderReturnProcessSerializers,
+TestingNamesSerializer,
+TestingStatusSerializer,
+ListTestingNames1Serializer,
  )
 import requests
 from django.db.models import Q
@@ -713,3 +716,95 @@ class updateIdViewSet(viewsets.ModelViewSet):
 class OrderReturnProcessViewSet(viewsets.ModelViewSet):
     queryset = RefundImageTable.objects.all()
     serializer_class = OrderReturnProcessSerializers
+
+
+#Testin name and status
+class CustomTestingPagination(PageNumberPagination):
+    page = DEFAULT_PAGE
+    page_size = 20
+    page_size_query_param = 'page_size'
+
+    def get_paginated_response(self, data):
+        return Response({
+            'links': {
+                'next': self.get_next_link(),
+                'previous': self.get_previous_link()
+            },
+            'total': self.page.paginator.count,
+            'page': int(self.request.GET.get('page', DEFAULT_PAGE)),
+            'page_size': int(self.request.GET.get('page_size', self.page_size)),
+            'UI_data': {
+                'sticky_headers': [
+                               'tn_id',
+                               'tn_name',
+                                         ],
+                'header': {
+                              'tn_id': 'tn ID',
+                              "tn_name": 'Page Name',
+                              "average_time": 'Average Time',
+                              # "tn_cron_code": 'Cron Code',
+                              # "tn_type": 'Type',
+                              "ts_starttime": 'Start Time',
+                              # "ts_startfile": 'Start File',
+                              "ts_stoptime": 'Stop Time',
+                              # "ts_stopfilelog": 'Stop File',
+                              "ts_status": 'Status',
+
+
+
+                           },
+                'searchable': [
+                    'tn_name',
+                    'average_time',
+                    'ts_starttime',
+                    'ts_stoptime',
+                    'ts_status',
+                ],
+                'sortable': [
+                              'tn_id','tn_name'
+                           ],
+
+
+            },
+            'results': data
+        })
+class TestingNamesViewSet(viewsets.ModelViewSet):
+
+    queryset = TestingNames.objects.all()
+    serializer_class = TestingNamesSerializer
+
+class TestingStatusViewSet(viewsets.ModelViewSet):
+    queryset = TestingStatus.objects.all()
+    serializer_class = TestingStatusSerializer
+
+
+class ListAssignRulesViewSet(viewsets.ViewSet):
+    # pagination_class = CustomPagination
+    def create(self, request):
+        queryset = TestingNames.objects.all()
+        serializer = ListTestingNames1Serializer(queryset, many=True)
+        if len(queryset) > 0:
+            paginator = CustomTestingPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            serializer = ListTestingNames1Serializer(result_page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        else:
+            paginator = CustomTestingPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            return paginator.get_paginated_response(result_page)
+
+class SearchTestViewSet(viewsets.ModelViewSet):
+    search_fields = [
+
+        'tn_name',
+        'average_time',
+        'testing_statuss__ts_starttime',
+        'testing_statuss__ts_stoptime',
+        'testing_statuss__ts_status',
+
+    ]
+    ordering_fields = ['tn_name', 'average_time']
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    queryset = TestingNames.objects.all()
+    serializer_class = ListTestingNames1Serializer
+    pagination_class = CustomTestingPagination

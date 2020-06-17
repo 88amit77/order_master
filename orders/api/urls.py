@@ -50,6 +50,11 @@ router.register('list_order_return', views.ListOrderReturnViewSet, basename="lis
 router.register('update_search_order_return', views.updateIdViewSet, basename='update_search_order_return')
 #order return process page
 router.register('create_order_return_process', views.OrderReturnProcessViewSet, basename='create_order_return_process')
+#ERP testing
+router.register('testing_names', views.TestingNamesViewSet, basename="testing_names")
+router.register('testing_status', views.TestingStatusViewSet, basename="testing_status")
+router.register('list_testing', views.ListAssignRulesViewSet, basename="list_testing")
+router.register('search_testing', views.SearchTestViewSet, basename="search_testing")
 
 urlpatterns = [
     path('', include(router.urls)),
