@@ -55,6 +55,8 @@ router.register('testing_names', views.TestingNamesViewSet, basename="testing_na
 router.register('testing_status', views.TestingStatusViewSet, basename="testing_status")
 router.register('list_testing', views.ListAssignRulesViewSet, basename="list_testing")
 router.register('search_testing', views.SearchTestViewSet, basename="search_testing")
+router.register('update_testing', views.UpdateTestViewSet, basename="update_testing")
+
 
 urlpatterns = [
     path('', include(router.urls)),

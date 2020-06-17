@@ -295,3 +295,31 @@ class ListTestingNames1Serializer(serializers.ModelSerializer):
     class Meta:
         model = TestingNames
         fields = ('tn_id', 'tn_name', 'average_time', 'tn_cron_code', 'tn_type', 'testing_statuss')
+
+class TestUpdateSerializer(serializers.Serializer):
+    tn_id = serializers.IntegerField()
+    tn_name = serializers.CharField(max_length=50)
+    average_time = serializers.FloatField()
+
+    testing_statuss = TestingStatusSerializer(many=True)
+
+    def update(self, instance, validated_data):
+        testing_statuss_data = validated_data.pop('testing_statuss')
+        dd_id = (instance.testing_statuss).all()
+        dd_id1 = list(dd_id)
+
+
+        #instance.tn_id = validated_data.get('tn_id', instance.tn_id)
+        instance.tn_name = validated_data.get('tn_name', instance.tn_name)
+        instance.average_time = validated_data.get('average_time', instance.average_time)
+        instance.save()
+
+        for testing_statuss_data1 in testing_statuss_data:
+            dd_idd = dd_id1.pop(0)
+            dd_idd.ts_starttime = testing_statuss_data1.get('ts_starttime', dd_idd.ts_starttime)
+            dd_idd.ts_stoptime = testing_statuss_data1.get('ts_stoptime', dd_idd.ts_stoptime)
+            dd_idd.ts_status = testing_statuss_data1.get('ts_status', dd_idd.ts_status)
+
+            dd_idd.save()
+
+        return instance

@@ -29,6 +29,7 @@ OrderReturnProcessSerializers,
 TestingNamesSerializer,
 TestingStatusSerializer,
 ListTestingNames1Serializer,
+TestUpdateSerializer,
  )
 import requests
 from django.db.models import Q
@@ -807,4 +808,10 @@ class SearchTestViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     queryset = TestingNames.objects.all()
     serializer_class = ListTestingNames1Serializer
+    pagination_class = CustomTestingPagination
+
+class UpdateTestViewSet(viewsets.ModelViewSet):
+
+    queryset = TestingNames.objects.all()
+    serializer_class = TestUpdateSerializer
     pagination_class = CustomTestingPagination
