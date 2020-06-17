@@ -272,5 +272,5 @@ class OrderReturnSerializer(serializers.Serializer):
 class OrderReturnProcessSerializers(serializers.ModelSerializer):
     class Meta:
         model = RefundImageTable
-        fields = ("dd_id", "image_list", 'tracking_id', 'package_condition', 'product_condition',
-                  'image_correctness', 'size_correctness', 'alternate_product_id', 'return_notes')
+        fields = ("dd_id", "image_list", 'tracking_id', 'package_condition', 'product_condition','return_category','created_at',
+                  'is_barcode_required', 'image_correctness', 'size_correctness', 'alternate_product_id', 'return_notes')
