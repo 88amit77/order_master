@@ -122,7 +122,7 @@ class RefundImageTable(models.Model):
                               blank=True)
     image_list = models.FileField(blank=True, null=True,)
     return_category = models.CharField(max_length=50, blank=True, null=True)
-    return_notes = models.CharField(max_length=100)
+    return_notes = models.CharField(max_length=100, blank=True, null=True)
     tracking_id = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(blank=True, null=True, )
