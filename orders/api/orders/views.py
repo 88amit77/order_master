@@ -557,7 +557,7 @@ class SearchListRMPODlistWarehouseViewSet(generics.ListCreateAPIView):
 #order case status
 class NewOrderCaseStatusSearchViewSet(generics.ListCreateAPIView):
     search_fields = [
-                    '=order_id', '=order_item_id',
+                    '=order_id', '=order_item_id','=product_id',
                      ]
     filter_backends = (filters.SearchFilter,)
     queryset = NewOrder.objects.all()

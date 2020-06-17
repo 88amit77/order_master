@@ -137,7 +137,7 @@ class ReturnManagementPODListSerializer(serializers.ModelSerializer):
 class NewOrderCaseStatusSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewOrder
-        fields =('dd_id', 'order_id', 'order_item_id', 'qty')
+        fields =('dd_id', 'order_id', 'order_item_id', 'qty','product_id')
 
 class CreateCaseStatusSerializer(serializers.ModelSerializer):
     class Meta:
