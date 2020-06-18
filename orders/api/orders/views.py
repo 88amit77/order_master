@@ -737,11 +737,11 @@ class CustomTestingPagination(PageNumberPagination):
             'UI_data': {
                 'sticky_headers': [
                                'tn_id',
-                               'tn_name',
+                               'name',
                                          ],
                 'header': {
                               'tn_id': 'tn ID',
-                              "tn_name": 'Page Name',
+                              "tn_name": 'Name',
                               "average_time": 'Average Time',
                               # "tn_cron_code": 'Cron Code',
                               # "tn_type": 'Type',
