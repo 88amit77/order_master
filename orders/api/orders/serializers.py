@@ -363,3 +363,15 @@ class ListCALAPISerializer(serializers.ModelSerializer):
     class Meta:
         model = CalculationApiList
         fields = ('cal_id', 'cal_name', 'cal_table_id', 'cal_average_time', 'cal_cron_code', 'cal_logs')
+
+
+class UpdateExternalApiListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExternalApiList
+        fields = ('eal_id','eal_cron_code')
+
+
+class UpdateCalculationApiListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CalculationApiList
+        fields = ('cal_id', 'cal_cron_code')

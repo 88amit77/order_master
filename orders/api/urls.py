@@ -64,9 +64,10 @@ router.register(r'cal_api_log', views.CalculationApiLogViewSet, basename='cal_ap
 
 router.register(r'list_ext_api', views.ListEXTAPIViewSet, basename='list_ext_api')
 router.register(r'list_cal_api', views.ListEXTAPIViewSet, basename='list_cal_api')
-
 router.register(r'search_ext_api', views.SearchEXTAPIViewSet, basename='search_ext_api')
 router.register(r'search_cal_api', views.SearchCalAPIViewSet, basename='search_cal_api')
+router.register(r'update_ext_api', views.UpdateEXTAPIViewSet, basename='update_ext_api')
+router.register(r'update_cal_api', views.UpdateCalAPIViewSet, basename='update_cal_api')
 
 
 urlpatterns = [

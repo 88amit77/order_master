@@ -37,6 +37,8 @@ from .serializers import (
      ExternalApiLogSerializer,
      CalculationApiListSerializer,
      CalculationApiLogSerializer,
+     UpdateExternalApiListSerializer,
+     UpdateCalculationApiListSerializer,
  )
 import requests
 from django.db.models import Q
@@ -996,3 +998,12 @@ class SearchCalAPIViewSet(viewsets.ModelViewSet):
     queryset = CalculationApiList.objects.all()
     serializer_class = ListCALAPISerializer
     pagination_class = CustomCALAPIPagination
+
+class UpdateEXTAPIViewSet(viewsets.ModelViewSet):
+    queryset = ExternalApiList.objects.all()
+    serializer_class = UpdateExternalApiListSerializer
+
+
+class UpdateCalAPIViewSet(viewsets.ModelViewSet):
+    queryset = CalculationApiList.objects.all()
+    serializer_class = UpdateCalculationApiListSerializer
