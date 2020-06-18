@@ -159,3 +159,44 @@ class TestingStatus(models.Model):
     ts_stoptime = models.DateTimeField(auto_now_add=True)
     ts_stopfilelog = models.URLField(null=True, blank=True)
     ts_status = models.CharField(max_length=100,null=True, blank=True)
+
+
+class ExternalApiList(models.Model):
+
+    eal_id = models.AutoField(primary_key=True)
+    eal_name = models.CharField(max_length=50)
+    eal_portal_id = models.PositiveIntegerField(null=True, blank=True)
+    eal_account_id = models.PositiveIntegerField(null=True, blank=True)
+    eal_average_time = models.FloatField(default=0.0)
+    eal_cron_code = models.CharField(max_length=50,null=True, blank=True)
+
+class ExternalApiLog(models.Model):
+
+    external_api_log_id = models.AutoField(primary_key=True)
+    eal_id = models.ForeignKey(ExternalApiList, on_delete=models.CASCADE, related_name='ext_log', null=True, blank=True)
+    eal_start_time = models.DateTimeField(auto_now_add=True)
+    eal_end_time = models.DateTimeField(null=True, blank=True)
+    eal_log = models.URLField(null=True, blank=True)
+    eal_status = models.PositiveIntegerField(null=True, blank=True)
+    eal_input_file = models.URLField(null=True, blank=True)
+    eal_output_log = models.URLField(null=True, blank=True)
+    eal_user_id = models.PositiveIntegerField(null=True, blank=True)
+
+class CalculationApiList(models.Model):
+
+    cal_id = models.AutoField(primary_key=True)
+    cal_name = models.CharField(max_length=50)
+    cal_table_id = models.CharField(max_length=50,null=True, blank=True)
+    cal_average_time= models.FloatField(default=0.0)
+    cal_cron_code = models.CharField(max_length=50,null=True, blank=True)
+
+class CalculationApiLog(models.Model):
+    calculation_api_log_id = models.AutoField(primary_key=True)
+    cal_id = models.ForeignKey(CalculationApiList, on_delete=models.CASCADE, related_name='cal_logs', null=True, blank=True)
+    cal_start_time = models.DateTimeField(auto_now_add=True)
+    cal_end_time = models.DateTimeField(null=True, blank=True)
+    cal_log = models.URLField(null=True, blank=True)
+    cal_status = models.PositiveIntegerField(null=True, blank=True)
+    cal_input_file = models.URLField(null=True, blank=True)
+    cal_outputfile = models.URLField(null=True, blank=True)
+    cal_user_id = models.PositiveIntegerField(null=True, blank=True)

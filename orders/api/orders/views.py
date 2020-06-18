@@ -4,7 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import filters
-from .models import ManiFest, PODList, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable, Reimbursement, TestingStatus,TestingNames
+from .models import (ManiFest, PODList, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable,
+    Reimbursement, TestingStatus,TestingNames,ExternalApiList,ExternalApiLog,CalculationApiList,CalculationApiLog)
 
 from .serializers import (
      NewOrderSerializer,
@@ -14,22 +15,28 @@ from .serializers import (
      ReimburesementSerializer,
      ManiFestSerializer,
      RefundImageTableSerializer,
-OrderViewNewOrderSerializer,
-updateBinIdSerializer,
-updateCancelBinIdSerializer,
-ReturnManagementPODListSerializer,
-CreateCaseStatusSerializer,
-CaseStatusListSerializer,
-CreateManiFestSerializer,
-ManifestListSerializer,
-NewOrderCaseStatusSearchSerializer,
-DispathSerializer,
-OrderReturnSerializer,
-OrderReturnProcessSerializers,
-TestingNamesSerializer,
-TestingStatusSerializer,
-ListTestingNames1Serializer,
-TestUpdateSerializer,
+     OrderViewNewOrderSerializer,
+     updateBinIdSerializer,
+     updateCancelBinIdSerializer,
+     ReturnManagementPODListSerializer,
+     CreateCaseStatusSerializer,
+     CaseStatusListSerializer,
+     CreateManiFestSerializer,
+     ManifestListSerializer,
+     NewOrderCaseStatusSearchSerializer,
+     DispathSerializer,
+     OrderReturnSerializer,
+     OrderReturnProcessSerializers,
+     TestingNamesSerializer,
+     TestingStatusSerializer,
+     ListTestingNames1Serializer,
+     TestUpdateSerializer,
+     ListEXTAPISerializer,
+     ListCALAPISerializer,
+     ExternalApiListSerializer,
+     ExternalApiLogSerializer,
+     CalculationApiListSerializer,
+     CalculationApiLogSerializer,
  )
 import requests
 from django.db.models import Q
@@ -816,3 +823,176 @@ class UpdateTestViewSet(viewsets.ModelViewSet):
     queryset = TestingNames.objects.all()
     serializer_class = TestUpdateSerializer
     pagination_class = CustomTestingPagination
+
+#API LOgs page
+class CustomEXTAPIPagination(PageNumberPagination):
+    page = DEFAULT_PAGE
+    page_size = 20
+    page_size_query_param = 'page_size'
+
+    def get_paginated_response(self, data):
+        return Response({
+            'links': {
+                'next': self.get_next_link(),
+                'previous': self.get_previous_link()
+            },
+            'total': self.page.paginator.count,
+            'page': int(self.request.GET.get('page', DEFAULT_PAGE)),
+            'page_size': int(self.request.GET.get('page_size', self.page_size)),
+            'UI_data': {
+                'sticky_headers': [
+                    'eal_portal_id',
+                    'eal_name',
+
+                ],
+                'header': {
+                    'eal_portal_id' : 'Portal Name',
+                    'eal_name' : 'API Name',
+                    'eal_account_id' : 'Account',
+                    'eal_average_time': 'Average Time',
+                    'eal_start_time' : 'Start Time',
+                    'eal_end_time':'End Time',
+                    'eal_user_id' :'User ID',
+
+
+                   },
+                'sortable': [
+                    'eal_name',
+                ],
+                'searchable': [
+                    'eal_portal_id',
+                    'eal_name',
+                    'eal_account_id',
+                    'eal_average_time',
+                    'eal_start_time',
+                    'eal_end_time',
+                    'eal_user_id',
+                ],
+
+            },
+            'results': data
+        })
+
+class CustomCALAPIPagination(PageNumberPagination):
+    page = DEFAULT_PAGE
+    page_size = 20
+    page_size_query_param = 'page_size'
+
+    def get_paginated_response(self, data):
+        return Response({
+            'links': {
+                'next': self.get_next_link(),
+                'previous': self.get_previous_link()
+            },
+            'total': self.page.paginator.count,
+            'page': int(self.request.GET.get('page', DEFAULT_PAGE)),
+            'page_size': int(self.request.GET.get('page_size', self.page_size)),
+            'UI_data': {
+                'sticky_headers': [
+                    'cal_name',
+
+                ],
+                'header': {
+                    'cal_name': 'Calculation Name',
+                    'cal_average_time': 'Average Time',
+                    'cal_start_time': 'Start Time',
+                    'cal_end_time': 'End Time',
+                    'cal_user_id': 'User ID',
+                    },
+                'sortable': [
+                    'cal_name',
+                ],
+                'searchable': [
+                    'cal_name',
+                    'cal_average_time',
+                    'cal_start_time',
+                    'cal_end_time',
+                    'cal_user_id',
+                ],
+
+            },
+            'results': data
+        })
+
+
+## amit_view for four extaa added tables
+class ExternalApiListViewSet(viewsets.ModelViewSet):
+	queryset = ExternalApiList.objects.all()
+	serializer_class = ExternalApiListSerializer
+
+
+class ExternalApiLogViewSet(viewsets.ModelViewSet):
+	queryset = ExternalApiLog.objects.all()
+	serializer_class = ExternalApiLogSerializer
+
+class CalculationApiListViewSet(viewsets.ModelViewSet):
+	queryset = CalculationApiList.objects.all()
+	serializer_class = CalculationApiListSerializer
+
+class CalculationApiLogViewSet(viewsets.ModelViewSet):
+	queryset = CalculationApiLog.objects.all()
+	serializer_class = CalculationApiLogSerializer
+
+
+class ListEXTAPIViewSet(viewsets.ViewSet):
+    # pagination_class = CustomPagination
+    def create(self, request):
+        queryset = ExternalApiList.objects.all()
+        serializer = ListEXTAPISerializer(queryset, many=True)
+        if len(queryset) > 0:
+            paginator = CustomEXTAPIPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            serializer = ListEXTAPISerializer(result_page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        else:
+            paginator = CustomEXTAPIPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            return paginator.get_paginated_response(result_page)
+
+class SearchEXTAPIViewSet(viewsets.ModelViewSet):
+    search_fields = [
+
+        'eal_portal_id',
+        'eal_name',
+        'eal_account_id',
+        'eal_average_time',
+        'ext_log__eal_start_time',
+        'ext_log__eal_end_time',
+        'ext_log__eal_user_id',
+
+    ]
+    ordering_fields = ['eal_name',]
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    queryset = ExternalApiList.objects.all()
+    serializer_class = ListEXTAPISerializer
+    pagination_class = CustomEXTAPIPagination
+class ListCALAPIViewSet(viewsets.ViewSet):
+    # pagination_class = CustomPagination
+    def create(self, request):
+        queryset = CalculationApiList.objects.all()
+        serializer = ListCALAPISerializer(queryset, many=True)
+        if len(queryset) > 0:
+            paginator = CustomCALAPIPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            serializer = ListCALAPISerializer(result_page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        else:
+            paginator = CustomCALAPIPagination()
+            result_page = paginator.paginate_queryset(queryset, request)
+            return paginator.get_paginated_response(result_page)
+
+class SearchCalAPIViewSet(viewsets.ModelViewSet):
+    search_fields = [
+
+                    'cal_name',
+                    'cal_average_time',
+                    'cal_logs__cal_start_time',
+                    'cal_logs__cal_end_time',
+                    'cal_logs__cal_user_id',
+
+    ]
+    ordering_fields = ['cal_name',]
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    queryset = CalculationApiList.objects.all()
+    serializer_class = ListCALAPISerializer
+    pagination_class = CustomCALAPIPagination

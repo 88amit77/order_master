@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import (PODList, ManiFest, NewOrder, Reimburesement, DispatchDetails,
-                    FulfilledReturn, RefundImageTable, Reimbursement,TestingNames,TestingStatus)
+                    FulfilledReturn, RefundImageTable, Reimbursement,TestingNames,TestingStatus,
+                     ExternalApiList,ExternalApiLog,CalculationApiList,CalculationApiLog)
 
 
 
@@ -323,3 +324,42 @@ class TestUpdateSerializer(serializers.Serializer):
             dd_idd.save()
 
         return instance
+
+
+#API log page
+class ExternalApiListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExternalApiList
+        fields = '__all__'
+
+
+class ExternalApiLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExternalApiLog
+        fields = '__all__'
+
+
+class CalculationApiListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CalculationApiList
+        fields = '__all__'
+
+
+class CalculationApiLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CalculationApiLog
+        fields = '__all__'
+
+
+class ListEXTAPISerializer(serializers.ModelSerializer):
+    ext_log = ExternalApiLogSerializer(many=True)
+    class Meta:
+        model = ExternalApiList
+        fields = ('eal_id', 'eal_name', 'eal_portal_id', 'eal_account_id', 'eal_average_time', 'eal_cron_code', 'ext_log')
+
+
+class ListCALAPISerializer(serializers.ModelSerializer):
+    cal_logs = CalculationApiLogSerializer(many=True)
+    class Meta:
+        model = CalculationApiList
+        fields = ('cal_id', 'cal_name', 'cal_table_id', 'cal_average_time', 'cal_cron_code', 'cal_logs')

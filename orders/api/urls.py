@@ -56,6 +56,17 @@ router.register('testing_status', views.TestingStatusViewSet, basename="testing_
 router.register('list_testing', views.ListAssignRulesViewSet, basename="list_testing")
 router.register('search_testing_Tn_Type', views.SearchTestViewSet, basename="search_testing")
 router.register('update_testing', views.UpdateTestViewSet, basename="update_testing")
+#ERP testing APILOG page API
+router.register(r'external_api_list', views.ExternalApiListViewSet, basename='external_api_list')
+router.register(r'external_api_log', views.ExternalApiLogViewSet, basename='external_api_log')
+router.register(r'cal_api_list', views.CalculationApiListViewSet, basename='cal_api_list')
+router.register(r'cal_api_log', views.CalculationApiLogViewSet, basename='cal_api_log')
+
+router.register(r'list_ext_api', views.ListEXTAPIViewSet, basename='list_ext_api')
+router.register(r'list_cal_api', views.ListEXTAPIViewSet, basename='list_cal_api')
+
+router.register(r'search_ext_api', views.SearchEXTAPIViewSet, basename='search_ext_api')
+router.register(r'search_cal_api', views.SearchCalAPIViewSet, basename='search_cal_api')
 
 
 urlpatterns = [
