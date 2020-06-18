@@ -54,7 +54,7 @@ router.register('create_order_return_process', views.OrderReturnProcessViewSet, 
 router.register('testing_names', views.TestingNamesViewSet, basename="testing_names")
 router.register('testing_status', views.TestingStatusViewSet, basename="testing_status")
 router.register('list_testing', views.ListAssignRulesViewSet, basename="list_testing")
-router.register('search_testing', views.SearchTestViewSet, basename="search_testing")
+router.register('search_testing_Tn_Type', views.SearchTestViewSet, basename="search_testing")
 router.register('update_testing', views.UpdateTestViewSet, basename="update_testing")
 
 

@@ -755,11 +755,12 @@ class CustomTestingPagination(PageNumberPagination):
 
                            },
                 'searchable': [
-                    'tn_name',
-                    'average_time',
-                    'ts_starttime',
-                    'ts_stoptime',
-                    'ts_status',
+                    # 'tn_name',
+                    # 'average_time',
+                    # 'ts_starttime',
+                    # 'ts_stoptime',
+                    # 'ts_status',
+                    'tn_type',
                 ],
                 'sortable': [
                               'tn_id','tn_name'
@@ -796,15 +797,15 @@ class ListAssignRulesViewSet(viewsets.ViewSet):
 
 class SearchTestViewSet(viewsets.ModelViewSet):
     search_fields = [
-
-        'tn_name',
-        'average_time',
-        'testing_statuss__ts_starttime',
-        'testing_statuss__ts_stoptime',
-        'testing_statuss__ts_status',
+        '=tn_type',
+        # 'tn_name',
+        # 'average_time',
+        # 'testing_statuss__ts_starttime',
+        # 'testing_statuss__ts_stoptime',
+        # 'testing_statuss__ts_status',
 
     ]
-    ordering_fields = ['tn_name', 'average_time']
+    ordering_fields = ['tn_name',]
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     queryset = TestingNames.objects.all()
     serializer_class = ListTestingNames1Serializer
