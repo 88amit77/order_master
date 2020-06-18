@@ -154,8 +154,8 @@ class TestingStatus(models.Model):
     ts_id = models.AutoField(primary_key=True)
     tn_id = models.ForeignKey(TestingNames, related_name='testing_statuss', on_delete=models.CASCADE, default=None,
                               unique=False)
-    ts_starttime = models.DateTimeField()
+    ts_starttime = models.DateTimeField(auto_now_add=True)
     ts_startfile = models.URLField(null=True, blank=True)
-    ts_stoptime = models.DateTimeField()
+    ts_stoptime = models.DateTimeField(auto_now_add=True)
     ts_stopfilelog = models.URLField(null=True, blank=True)
     ts_status = models.CharField(max_length=100,null=True, blank=True)

@@ -316,8 +316,8 @@ class TestUpdateSerializer(serializers.Serializer):
 
         for testing_statuss_data1 in testing_statuss_data:
             dd_idd = dd_id1.pop(0)
-            # dd_idd.ts_starttime = testing_statuss_data1.get('ts_starttime', dd_idd.ts_starttime)
-            # dd_idd.ts_stoptime = testing_statuss_data1.get('ts_stoptime', dd_idd.ts_stoptime)
+            dd_idd.ts_starttime = testing_statuss_data1.get('ts_starttime', dd_idd.ts_starttime)
+            dd_idd.ts_stoptime = testing_statuss_data1.get('ts_stoptime', dd_idd.ts_stoptime)
             dd_idd.ts_status = testing_statuss_data1.get('ts_status', dd_idd.ts_status)
 
             dd_idd.save()
