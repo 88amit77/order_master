@@ -740,7 +740,7 @@ class CustomTestingPagination(PageNumberPagination):
                                'name',
                                          ],
                 'header': {
-                              'tn_id': 'tn ID',
+                              'tn_id': 'ID',
                               "tn_name": 'Name',
                               "average_time": 'Average Time',
                               # "tn_cron_code": 'Cron Code',
