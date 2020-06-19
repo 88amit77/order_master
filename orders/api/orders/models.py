@@ -6,9 +6,10 @@ from django.db import models
 class NewOrder(models.Model):
    # buymore_order_id = models.AutoField(primary_key=True)
     dd_id = models.AutoField(primary_key=True)
+    buymore_sku = models.CharField(max_length=20)
     product_id = models.IntegerField()
-    order_id = models.IntegerField()
-    order_item_id = models.IntegerField()
+    order_id = models.CharField(max_length=20)
+    order_item_id = models.CharField(max_length=20)
     order_date = models.DateField()
     dispatch_by_date = models.DateField()
     portal_id = models.IntegerField()

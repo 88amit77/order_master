@@ -63,7 +63,7 @@ router.register(r'cal_api_list', views.CalculationApiListViewSet, basename='cal_
 router.register(r'cal_api_log', views.CalculationApiLogViewSet, basename='cal_api_log')
 
 router.register(r'list_ext_api', views.ListEXTAPIViewSet, basename='list_ext_api')
-router.register(r'list_cal_api', views.ListEXTAPIViewSet, basename='list_cal_api')
+router.register(r'list_cal_api', views.ListCALAPIViewSet, basename='list_cal_api')
 router.register(r'search_ext_api', views.SearchEXTAPIViewSet, basename='search_ext_api')
 router.register(r'search_cal_api', views.SearchCalAPIViewSet, basename='search_cal_api')
 router.register(r'update_ext_api', views.UpdateEXTAPIViewSet, basename='update_ext_api')
