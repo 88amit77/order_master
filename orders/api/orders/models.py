@@ -129,7 +129,7 @@ class FulfilledReturn(models.Model):
 class RefundImageTable(models.Model):
     dd_id = models.ForeignKey(NewOrder, on_delete=models.CASCADE, related_name='dd_refundimagetable', null=True,
                               blank=True)
-    iimage_list = models.FileField(blank=True, null=True, upload_to='RefundImageTable/image_list/', max_length=100, validators=[
+    image_list = models.FileField(blank=True, null=True, upload_to='RefundImageTable/image_list/', max_length=100, validators=[
         FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm'])])
     return_category = models.CharField(max_length=50, blank=True, null=True)
     return_notes = models.CharField(max_length=100, blank=True, null=True)
