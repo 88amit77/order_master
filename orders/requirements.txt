@@ -1,6 +1,4 @@
-asgiref==3.2.10
-certifi==2020.6.20
-chardet==3.0.4
+asgiref==3.2.5
 dateutils==0.6.8
 django-dropbox-storage==0.4.1
 django-filter==2.3.0
@@ -16,7 +14,6 @@ six==1.15.0
 sqlparse==0.3.1
 urllib3==1.25.9
 appdirs==1.4.3
-asgiref==3.2.5
 attrs==19.3.0
 boto3==1.12.39
 botocore==1.15.39
@@ -33,14 +30,10 @@ Django==3.0.7
 django-compression-middleware==0.4.1
 django-cors-headers==3.2.1
 django-extensions==2.2.9
-django-filter==2.2.0
 django-import-csv==0.1.10
 django-rest-swagger==2.2.0
-django-storages==1.9.1
-djangorestframework==3.11.0
 docutils==0.15.2
 drf-yasg==1.17.1
-dropbox==10.2.0
 et-xmlfile==1.0.1
 filelock==3.0.12
 fsspec==0.7.2
@@ -82,11 +75,8 @@ ruamel.yaml.clib==0.2.0
 s3fs==0.4.2
 s3transfer==0.3.3
 simplejson==3.17.0
-six==1.14.0
-sqlparse==0.3.1
 toml==0.10.0
 uritemplate==3.0.1
-urllib3==1.25.8
 virtualenv==20.0.13
 wcwidth==0.1.9
 webencodings==0.5.1
