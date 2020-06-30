@@ -458,6 +458,14 @@ class FulfilledReturnViewSet(viewsets.ModelViewSet):
     serializer_class = FulfilledReturnSerializer
 
 
+#for cross check FR id is present or not
+class SearchFulfilledReturnViewSet(viewsets.ModelViewSet):
+    search_fields = ['=fr_id', ]
+    filter_backends = (filters.SearchFilter,)
+    queryset = FulfilledReturn.objects.all()
+    serializer_class = FulfilledReturnSerializer
+
+
 class ManiFestViewSet(viewsets.ModelViewSet):
     queryset = ManiFest.objects.all()
     serializer_class = ManiFestSerializer
