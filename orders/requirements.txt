@@ -7,3 +7,4 @@ drf-yasg
 django-cors-headers
 pillow
 python-dateutil
+django-filter==2.3.0
