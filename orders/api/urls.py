@@ -50,6 +50,7 @@ router.register('list_order_return', views.ListOrderReturnViewSet, basename="lis
 router.register('update_search_order_return', views.updateIdViewSet, basename='update_search_order_return')
 #order return process page
 router.register('create_order_return_process', views.OrderReturnProcessViewSet, basename='create_order_return_process')
+router.register('search_fulfilled_return', views.SearchFulfilledReturnViewSet, basename="search_fulfilled_return")
 #ERP testing
 router.register('testing_names', views.TestingNamesViewSet, basename="testing_names")
 router.register('testing_status', views.TestingStatusViewSet, basename="testing_status")
