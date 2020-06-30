@@ -1,10 +1,10 @@
 Django
 djangorestframework
+djangorestframework_simplejwt
 psycopg2-binary
 gunicorn
 requests
 drf-yasg
 django-cors-headers
-pillow
-python-dateutil
-django-filter==2.3.0
+django-filters
+django-filter
