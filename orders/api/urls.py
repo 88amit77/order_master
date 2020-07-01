@@ -86,4 +86,4 @@ urlpatterns = [
     path('order/order_id_search/', views.SearchOrderIDViewSet.as_view()),
 ]
 
-urlpatterns += staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
