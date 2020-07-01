@@ -99,7 +99,8 @@ class PODList(models.Model):
     pod_id = models.AutoField(primary_key=True)
     pod_number = models.CharField(max_length=20)
     courier_partner_name = models.CharField(max_length=30)
-    pod_image_list = models.URLField(null=True, blank=True)
+    pod_image_list = models.FileField(blank=True, null=True, upload_to='Orders/PODlist/', max_length=100, validators=[
+        FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm'])])
     total_quantity_received = models.IntegerField()
     processed_quantity = models.IntegerField(null=True, blank=True)
     warehouse_id = models.IntegerField(null=True, blank=True)
@@ -165,9 +166,11 @@ class TestingStatus(models.Model):
     tn_id = models.ForeignKey(TestingNames, related_name='testing_statuss', on_delete=models.CASCADE, default=None,
                               unique=False)
     ts_starttime = models.DateTimeField(auto_now_add=True)
-    ts_startfile = models.URLField(null=True, blank=True)
+    ts_startfile = models.FileField(blank=True, null=True, upload_to='ERP_Monitoring/TestingStatus/', max_length=100, validators=[
+        FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm'])])
     ts_stoptime = models.DateTimeField(auto_now_add=True)
-    ts_stopfilelog = models.URLField(null=True, blank=True)
+    ts_stopfilelog = models.FileField(blank=True, null=True, upload_to='ERP_Monitoring/TestingStatus/', max_length=100, validators=[
+        FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm'])])
     ts_status = models.CharField(max_length=100,null=True, blank=True)
 
 
