@@ -141,6 +141,14 @@ class NewOrderCaseStatusSearchSerializer(serializers.ModelSerializer):
         model = NewOrder
         fields =('dd_id', 'order_id', 'order_item_id', 'qty','product_id')
 
+#for data matching return processing
+class SerachReturnProcessingSerializer(serializers.ModelSerializer):
+    dd_fullfilledreturn = FulfilledReturnSerializer(many=True)
+    class Meta:
+        model = NewOrder
+        fields = ('dd_id', 'order_id', 'order_item_id', 'qty','product_id', 'dd_fullfilledreturn')
+
+
 class CreateCaseStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reimbursement

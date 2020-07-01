@@ -51,6 +51,7 @@ router.register('update_search_order_return', views.updateIdViewSet, basename='u
 #order return process page
 router.register('create_order_return_process', views.OrderReturnProcessViewSet, basename='create_order_return_process')
 router.register('search_fulfilled_return', views.SearchFulfilledReturnViewSet, basename="search_fulfilled_return")
+router.register('Serach_Return_Processing', views.SerachReturnProcessingViewSet, basename="Serach_Return_Processing")
 #ERP testing
 router.register('testing_names', views.TestingNamesViewSet, basename="testing_names")
 router.register('testing_status', views.TestingStatusViewSet, basename="testing_status")
