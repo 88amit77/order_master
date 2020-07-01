@@ -39,6 +39,7 @@ from .serializers import (
      CalculationApiLogSerializer,
      UpdateExternalApiListSerializer,
      UpdateCalculationApiListSerializer,
+     SerachReturnProcessingSerializer,
  )
 import requests
 from django.db.models import Q
@@ -685,6 +686,15 @@ class DispatchByDateFilterViewSet(ViewSet):
         return Response(serializer.data)
 
 #order return page
+
+#to search order_id is present or not including FR_id
+class SerachReturnProcessingViewSet(viewsets.ModelViewSet):
+    search_fields = [
+        '=order_id',
+       ]
+    filter_backends = (filters.SearchFilter, )
+    queryset = NewOrder.objects.all()
+    serializer_class = SerachReturnProcessingSerializer
 
 class ListOrderReturnViewSet(viewsets.ViewSet):
     def create(self, request):
