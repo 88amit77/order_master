@@ -132,7 +132,7 @@ class updateCancelBinIdSerializer(serializers.Serializer):
 class ReturnManagementPODListSerializer(serializers.ModelSerializer):
     class Meta:
         model = PODList
-        fields = ('pod_id', 'pod_number', 'courier_partner_name', 'pod_image_list', 'total_quantity_received')
+        fields = ('pod_id', 'pod_number', 'courier_partner_name', 'warehouse_id', 'pod_image_list', 'total_quantity_received')
 
 
 #order case status
