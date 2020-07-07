@@ -37,9 +37,9 @@ class NewOrder(models.Model):
 class DispatchDetails(models.Model):
     dipatch_details_id = models.AutoField(primary_key=True)
     dd_id = models.ForeignKey(NewOrder, on_delete=models.CASCADE, related_name='dd_dispatchdetailss', null=True, blank=True)
-    name = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
-    pincode = models.IntegerField()
+    name = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
+    pincode = models.CharField(max_length=10)
     location_latitude = models.FloatField()
     location_longitude = models.FloatField()
     email_id = models.EmailField()
@@ -60,8 +60,8 @@ class DispatchDetails(models.Model):
     shipment_id = models.CharField(max_length=200)
     is_canceled = models.BooleanField(default=False)
     cancel_inward_bin = models.CharField(max_length=30)
-    created_at = models.DateTimeField()
-    update_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.awb
