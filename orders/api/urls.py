@@ -75,7 +75,7 @@ router.register(r'order/update_cal_api', views.UpdateCalAPIViewSet, basename='up
 
 urlpatterns = [
     path('', include(router.urls)),
-    path("order/orders_docs/", schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('order/orders_docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('order/order_view_search/', views.OrderViewSearchAPIView.as_view()),
     path('order/list_pod_list_search/', views.SearchListRMPODlistViewSet.as_view()),
     path('order/list_pod_Warehousewise_search/', views.SearchListRMPODlistWarehouseViewSet.as_view()),
