@@ -83,7 +83,7 @@ urlpatterns = [
     path('order/list_case_status_search/', views.SearchListordercasestatusViewSet.as_view()),
     path('order/manifest_data_match_search/', views.NewOrderManifestSearchViewSet.as_view()),
     path('order/list_manifest_search/', views.SearchListManiFestViewSet.as_view()),
-    # path('order/testing_master_search/', views.SearchTestViewSet22.as_view()),
+    path('order/testing_master_search/', views.SearchTestViewSet22.as_view()),
     path('order/order_id_search/', views.SearchOrderIDViewSet.as_view()),
 ]
 
