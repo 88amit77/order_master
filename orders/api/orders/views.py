@@ -840,13 +840,14 @@ class SearchTestViewSet(viewsets.ModelViewSet):
 
 
 #for master search for testing page
-# from django_filters.rest_framework import DjangoFilterBackend
-# class SearchTestViewSet22(generics.ListAPIView):
-#     queryset = TestingNames.objects.all()
-#     serializer_class = ListTestingNames1Serializer
-#     filter_backends = [DjangoFilterBackend]
-#     filterset_fields = ['tn_type', 'tn_name']
-#     pagination_class = CustomTestingPagination
+from django_filters.rest_framework import DjangoFilterBackend
+
+class SearchTestViewSet22(generics.ListAPIView):
+    queryset = TestingNames.objects.all()
+    serializer_class = ListTestingNames1Serializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['tn_type', 'tn_name']
+    pagination_class = CustomTestingPagination
 
 class UpdateTestViewSet(viewsets.ModelViewSet):
 
