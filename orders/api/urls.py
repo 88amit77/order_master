@@ -83,5 +83,5 @@ urlpatterns = [
     path('manifest_data_match_search/', views.NewOrderManifestSearchViewSet.as_view()),
     path('list_manifest_search/', views.SearchListManiFestViewSet.as_view()),
     path('order_id_search/', views.SearchOrderIDViewSet.as_view()),
-    path('testing_master_search/', views.SearchTestViewSet2.as_view()),
+    path('testing_master_search/', views.SearchTestViewSet22.as_view()),
 ]

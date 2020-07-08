@@ -832,7 +832,7 @@ class SearchTestViewSet(viewsets.ModelViewSet):
         # 'testing_statuss__ts_status',
 
     ]
-    ordering_fields = ['tn_name',]
+    ordering_fields = ['tn_name','tn_id']
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     queryset = TestingNames.objects.all()
     serializer_class = ListTestingNames1Serializer
@@ -841,7 +841,7 @@ class SearchTestViewSet(viewsets.ModelViewSet):
 
 #for master search for testing page
 from django_filters.rest_framework import DjangoFilterBackend
-class SearchTestViewSet2(generics.ListAPIView):
+class SearchTestViewSet22(generics.ListAPIView):
     queryset = TestingNames.objects.all()
     serializer_class = ListTestingNames1Serializer
     filter_backends = [DjangoFilterBackend]
