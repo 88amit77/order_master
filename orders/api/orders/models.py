@@ -165,10 +165,10 @@ class TestingStatus(models.Model):
     ts_id = models.AutoField(primary_key=True)
     tn_id = models.ForeignKey(TestingNames, related_name='testing_statuss', on_delete=models.CASCADE, default=None,
                               unique=False)
-    ts_starttime = models.DateTimeField(auto_now_add=True)
+    ts_starttime = models.DateTimeField()
     ts_startfile = models.FileField(blank=True, null=True, upload_to='ERP_Monitoring/TestingStatus/', max_length=100, validators=[
         FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm', 'csv'])])
-    ts_stoptime = models.DateTimeField(auto_now_add=True)
+    ts_stoptime = models.DateTimeField()
     ts_stopfilelog = models.FileField(blank=True, null=True, upload_to='ERP_Monitoring/TestingStatus/', max_length=100, validators=[
         FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm', 'csv'])])
     ts_status = models.CharField(max_length=100,null=True, blank=True)
