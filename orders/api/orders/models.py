@@ -168,7 +168,7 @@ class TestingStatus(models.Model):
     ts_starttime = models.DateTimeField()
     ts_startfile = models.FileField(blank=True, null=True, upload_to='ERP_Monitoring/TestingStatus/', max_length=100, validators=[
         FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm', 'csv'])])
-    ts_stoptime = models.DateTimeField()
+    ts_stoptime = models.DateTimeField(null=True, blank=True)
     ts_stopfilelog = models.FileField(blank=True, null=True, upload_to='ERP_Monitoring/TestingStatus/', max_length=100, validators=[
         FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm', 'csv'])])
     ts_status = models.CharField(max_length=100,null=True, blank=True)
