@@ -790,7 +790,7 @@ class CustomTestingPagination(PageNumberPagination):
                     'tn_type',
                 ],
                 'sortable': [
-                              'tn_id','tn_name','testing_statuss__ts_starttime','testing_statuss__ts_stoptime',
+                              'tn_id','tn_name','ts_starttime','ts_stoptime',
                            ],
 
 
