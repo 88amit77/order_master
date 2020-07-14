@@ -802,56 +802,13 @@ class TestingNamesViewSet(viewsets.ModelViewSet):
     queryset = TestingNames.objects.all()
     serializer_class = TestingNamesSerializer
 
-class CustomTestingStatusPagination(PageNumberPagination):
-    page = DEFAULT_PAGE
-    page_size = 3
-    page_size_query_param = 'page_size'
 
-    def get_paginated_response(self, data):
-        return Response({
-            'links': {
-                'next': self.get_next_link(),
-                'previous': self.get_previous_link()
-            },
-            'total': self.page.paginator.count,
-            'page': int(self.request.GET.get('page', DEFAULT_PAGE)),
-            'page_size': int(self.request.GET.get('page_size', self.page_size)),
-            'UI_data': {
-                # 'sticky_headers': [
-                #                'tn_id',
-                #                'name',
-                #                          ],
-                'header': {
-                              'tn_id': 'TN ID',
-                              "ts_id": 'TS ID',
-                              "ts_starttime": 'Start Time',
-                              "ts_startfile": 'Start File',
-                              "ts_stoptime": 'Stop Time',
-                              "ts_stopfilelog": 'Stop File',
-                              "ts_status": 'Status',
-                           },
-                'searchable': [
-                    '=tn_id',
-                               ],
-                'sortable': [
-                              'ts_starttime', 'ts_stoptime','ts_status'
-                           ],
-
-
-            },
-            'results': data
-        })
 
 class TestingStatusViewSet(viewsets.ModelViewSet):
-    search_fields = [
-        'tn_id',
 
-                   ]
-    ordering_fields = ['ts_starttime', 'ts_stoptime','ts_status']
-    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     queryset = TestingStatus.objects.all()
     serializer_class = TestingStatusSerializer
-    pagination_class = CustomTestingStatusPagination
+
 
 
 class ListAssignRulesViewSet(viewsets.ViewSet):
