@@ -60,6 +60,7 @@ class DispatchDetails(models.Model):
     courier_partner = models.CharField(max_length=30)
     shipment_id = models.CharField(max_length=200)
     is_canceled = models.BooleanField(default=False)
+    dd_paymentstatus = models.BooleanField(default=False)
     cancel_inward_bin = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -95,6 +96,7 @@ class Reimbursement(models.Model):
     case_content = models.CharField(max_length=20)
     case_reply = models.CharField(max_length=20)
     reimbursement_amount = models.FloatField()
+
 
 class PODList(models.Model):
     pod_id = models.AutoField(primary_key=True)
