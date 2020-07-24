@@ -59,6 +59,9 @@ router.register('order/testing_status', views.TestingStatusViewSet, basename="te
 router.register('order/list_testing', views.ListAssignRulesViewSet, basename="list_testing")
 router.register('order/search_testing_Tn_Type', views.SearchTestViewSet, basename="search_testing")
 router.register('order/update_testing', views.UpdateTestViewSet, basename="update_testing")
+router.register('order/master_search_testing', views.EmployeeWiseAttendanceLogViewSet, basename="master_search_testing")
+
+
 #ERP testing APILOG page API
 router.register(r'order/external_api_list', views.ExternalApiListViewSet, basename='external_api_list')
 router.register(r'order/external_api_log', views.ExternalApiLogViewSet, basename='external_api_log')
