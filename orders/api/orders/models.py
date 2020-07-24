@@ -14,13 +14,14 @@ class ManiFest(models.Model):
 class NewOrder(models.Model):
    # buymore_order_id = models.AutoField(primary_key=True)
     dd_id = models.AutoField(primary_key=True)
-    buymore_sku = models.CharField(max_length=20)
-    product_id = models.IntegerField()
+    buymore_sku = models.CharField(max_length=50, null=True, blank=True)
+    product_id = models.IntegerField(null=True,blank=True)
     order_id = models.CharField(max_length=20)
     order_item_id = models.CharField(max_length=20)
     order_date = models.DateField()
     dispatch_by_date = models.DateField()
     portal_id = models.IntegerField()
+    portal_account_id = models.IntegerField(null=True, blank=True)
     portal_sku = models.CharField(max_length=200)
     qty = models.IntegerField()
     selling_price = models.FloatField()
@@ -168,12 +169,12 @@ class TestingStatus(models.Model):
     ts_id = models.AutoField(primary_key=True)
     tn_id = models.ForeignKey(TestingNames, related_name='testing_statuss', on_delete=models.CASCADE, default=None,
                               unique=False)
-    ts_starttime = models.DateTimeField(auto_now_add=True)
+    ts_starttime = models.DateTimeField()
     ts_startfile = models.FileField(blank=True, null=True, upload_to='ERP_Monitoring/TestingStatus/', max_length=100, validators=[
-        FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm'])])
-    ts_stoptime = models.DateTimeField(auto_now_add=True)
+        FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm', 'csv'])])
+    ts_stoptime = models.DateTimeField(null=True, blank=True)
     ts_stopfilelog = models.FileField(blank=True, null=True, upload_to='ERP_Monitoring/TestingStatus/', max_length=100, validators=[
-        FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm'])])
+        FileExtensionValidator(allowed_extensions=['gif', 'log', 'mp4', 'png', 'jpeg', 'jpg', 'webm', 'csv'])])
     ts_status = models.CharField(max_length=100,null=True, blank=True)
 
 

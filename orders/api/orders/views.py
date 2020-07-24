@@ -40,6 +40,7 @@ from .serializers import (
      UpdateExternalApiListSerializer,
      UpdateCalculationApiListSerializer,
      SerachReturnProcessingSerializer,
+     MasterSearchTestingSerializer,
  )
 import requests
 from django.db.models import Q
@@ -784,7 +785,7 @@ class CustomTestingPagination(PageNumberPagination):
 
                            },
                 'searchable': [
-                    # 'tn_name',
+                    'tn_name',
                     # 'average_time',
                     # 'ts_starttime',
                     # 'ts_stoptime',
@@ -792,7 +793,7 @@ class CustomTestingPagination(PageNumberPagination):
                     'tn_type',
                 ],
                 'sortable': [
-                              'tn_id','tn_name'
+                              'tn_id','tn_name','ts_starttime','ts_stoptime',
                            ],
 
 
@@ -804,9 +805,13 @@ class TestingNamesViewSet(viewsets.ModelViewSet):
     queryset = TestingNames.objects.all()
     serializer_class = TestingNamesSerializer
 
+
+
 class TestingStatusViewSet(viewsets.ModelViewSet):
+
     queryset = TestingStatus.objects.all()
     serializer_class = TestingStatusSerializer
+
 
 
 class ListAssignRulesViewSet(viewsets.ViewSet):
@@ -834,7 +839,7 @@ class SearchTestViewSet(viewsets.ModelViewSet):
         # 'testing_statuss__ts_status',
 
     ]
-    ordering_fields = ['tn_name','tn_id']
+    ordering_fields = ['tn_name','tn_id','testing_statuss__ts_starttime','testing_statuss__ts_stoptime']
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     queryset = TestingNames.objects.all()
     serializer_class = ListTestingNames1Serializer
@@ -842,6 +847,17 @@ class SearchTestViewSet(viewsets.ModelViewSet):
 
 
 #for master search for testing page
+class EmployeeWiseAttendanceLogViewSet(viewsets.ModelViewSet):
+    search_fields = ['=tn_id__tn_type','tn_id__tn_name']
+    ordering_fields = ['tn_id__tn_id','tn_id__tn_name','ts_starttime','ts_stoptime','ts_status']
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    queryset = TestingStatus.objects.all().order_by('-ts_starttime')
+    serializer_class = MasterSearchTestingSerializer
+    pagination_class = CustomTestingPagination
+
+
+
+
 from django_filters.rest_framework import DjangoFilterBackend
 
 class SearchTestViewSet22(generics.ListAPIView):
