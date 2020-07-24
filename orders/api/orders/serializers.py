@@ -302,7 +302,7 @@ class TestingStatusSerializer(serializers.ModelSerializer):
 class MasterSearchTestingSerializer(serializers.ModelSerializer):
 
     tn_name = serializers.CharField(source='tn_id.tn_name', read_only=True)
-    tn_type = serializers.PositiveIntegerField(source='tn_id.tn_type', read_only=True)
+    tn_type = serializers.IntegerField(source='tn_id.tn_type', read_only=True)
     average_time = serializers.FloatField(source='tn_id.average_time', read_only=True)
     tn_cron_code = serializers.CharField(source='tn_id.tn_cron_code', read_only=True)
 
