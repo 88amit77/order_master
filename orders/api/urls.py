@@ -85,6 +85,7 @@ urlpatterns = [
     path('order/list_manifest_search/', views.SearchListManiFestViewSet.as_view()),
     path('order/testing_master_search/', views.SearchTestViewSet22.as_view()),
     path('order/order_id_search/', views.SearchOrderIDViewSet.as_view()),
+    path('order/get_invoice/', views.GetInvoiceUrl.as_view()),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

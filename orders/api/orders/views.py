@@ -44,6 +44,8 @@ from .serializers import (
 import requests
 from django.db.models import Q
 from rest_framework.pagination import PageNumberPagination
+import dropbox
+
 
 DEFAULT_PAGE = 1
 class CustomOrderPagination(PageNumberPagination):
@@ -1036,3 +1038,18 @@ class UpdateEXTAPIViewSet(viewsets.ModelViewSet):
 class UpdateCalAPIViewSet(viewsets.ModelViewSet):
     queryset = CalculationApiList.objects.all()
     serializer_class = UpdateCalculationApiListSerializer
+
+
+class GetInvoiceUrl(APIView):
+    def get(self, request):
+        dd_id = request.query_params['id']
+        order = NewOrder.objects.get(dd_id=dd_id)
+        order_id = order.order_id
+        order_item_id = order.order_item_id
+        file_path = '/buymore2/orders/invoices/' + order_id + '#' + order_item_id + '.pdf'
+        access_token = 'd7ElXR2Sr-AAAAAAAAAAC2HC0qc45ss1TYhRYB4Jy6__NJU1jjGiffP7LlP_2rrf'
+        dbx = dropbox.Dropbox(access_token)
+        link = dbx.files_get_temporary_link(file_path).link
+        return Response({
+            'link': link
+        })
