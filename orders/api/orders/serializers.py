@@ -310,7 +310,7 @@ class MasterSearchTestingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TestingStatus
-        fields = ('tn_id','tn_name', 'tn_type ', 'average_time', 'tn_cron_code','ts_id', 'ts_starttime', 'ts_stoptime', 'ts_status')
+        fields = ('tn_id','tn_name', 'tn_type', 'average_time', 'tn_cron_code','ts_id', 'ts_starttime', 'ts_stoptime', 'ts_status')
 
 
 class ListTestingNames1Serializer(serializers.ModelSerializer):
