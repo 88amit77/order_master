@@ -40,6 +40,7 @@ from .serializers import (
      UpdateExternalApiListSerializer,
      UpdateCalculationApiListSerializer,
      SerachReturnProcessingSerializer,
+     MasterSearchTestingSerializer,
  )
 import requests
 from django.db.models import Q
@@ -782,7 +783,7 @@ class CustomTestingPagination(PageNumberPagination):
 
                            },
                 'searchable': [
-                    # 'tn_name',
+                    'tn_name',
                     # 'average_time',
                     # 'ts_starttime',
                     # 'ts_stoptime',
@@ -844,6 +845,17 @@ class SearchTestViewSet(viewsets.ModelViewSet):
 
 
 #for master search for testing page
+class EmployeeWiseAttendanceLogViewSet(viewsets.ModelViewSet):
+    search_fields = ['=tn_id__tn_type','tn_id__tn_name']
+    ordering_fields = ['tn_id__tn_id','tn_id__tn_name','ts_starttime','ts_stoptime','ts_status']
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    queryset = TestingStatus.objects.all().order_by('-ts_starttime')
+    serializer_class = MasterSearchTestingSerializer
+    pagination_class = CustomTestingPagination
+
+
+
+
 from django_filters.rest_framework import DjangoFilterBackend
 
 class SearchTestViewSet22(generics.ListAPIView):
@@ -1040,3 +1052,4 @@ class UpdateEXTAPIViewSet(viewsets.ModelViewSet):
 class UpdateCalAPIViewSet(viewsets.ModelViewSet):
     queryset = CalculationApiList.objects.all()
     serializer_class = UpdateCalculationApiListSerializer
+
