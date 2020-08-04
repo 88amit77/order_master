@@ -78,6 +78,21 @@ class DispatchDetails(models.Model):
 #     def __str__(self):
 #         return str(self.mf_id)
 
+class PostalCode(models.Model):
+    """
+    Model For POStal Code 
+    """
+    class ZoneList(models.IntegerChoices):
+        """ """
+        North = 1
+        South = 2
+        East = 3
+        West = 4
+
+    postal_code_id = models.AutoField(primary_key=True)
+    zone_id = models.PositiveSmallIntegerField(choices=ZoneList.choices,)
+    postal_code = models.CharField(max_length=6)
+
 
 class Reimburesement(models.Model):
     rr_id = models.AutoField(primary_key=True)
