@@ -175,7 +175,7 @@ class CaseStatusListSerializer(serializers.ModelSerializer):
 class DispathSerializer(serializers.ModelSerializer):
     class Meta:
         model =DispatchDetails
-        fields =('dipatch_details_id', 'dd_id', 'awb',)
+        fields =('dipatch_details_id', 'dd_id', 'awb','mf_id',)
 
 
 class CreateManiFestSerializer(serializers.ModelSerializer):
