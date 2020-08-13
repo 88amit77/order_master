@@ -59,6 +59,7 @@ class DispatchDetails(models.Model):
     awb = models.CharField(max_length=30, null=True, blank=True)
     courier_partner = models.CharField(max_length=30)
     shipment_id = models.CharField(max_length=200)
+    fulfillment_model = models.CharField(max_length=50, null=True, blank=True)
     is_canceled = models.BooleanField(default=False)
     dd_cancelledpaymentstatus = models.BooleanField(default=False)
     dd_paymentstatus = models.BooleanField(default=False)
