@@ -25,7 +25,7 @@ router.register('order/fulfilled_return', views.FulfilledReturnViewSet, basename
 router.register('order/pod_list', views.PODListViewSet, basename="pod_list")
 router.register('order/mani_fest', views.ManiFestViewSet, basename="mani_fest")
 router.register('order/refund_image_table', views.RefundImageTableViewSet, basename="refund_image_table")
-#for oreder view
+#for order view
 router.register('order/order_view', views.orderviewViewSet, basename="order_view")
 router.register('order/list_order_view', views.ListorderViewSet, basename="list_order_view")
 router.register('order/update_bin_id', views.updateBinIdViewSet, basename="update_bin_id")

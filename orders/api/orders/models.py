@@ -4,7 +4,7 @@ from django.core.validators import FileExtensionValidator
 class ManiFest(models.Model):
     mf_id = models.AutoField(primary_key=True)
     courier_partner = models.CharField(max_length=50)
-    mf_sheet = models.URLField(null=True, blank=True)
+    mf_sheet = models.BooleanField(default=False)
     created_date = models.DateField(auto_now_add=True)
     # dipatch_details_id = models.ManyToManyField(DispatchDetails)
     def __str__(self):
