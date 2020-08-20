@@ -12,9 +12,11 @@ ALLOWED_HOSTS = ['*', 'warehouse_web']
 INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'rest_framework',
-	'rest_framework_swagger',
+	'drf_yasg',
+	'django_filters',
 	'api',
-	'corsheaders'
+	'corsheaders',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -83,8 +85,16 @@ TEMPLATES = [
 	},
 ]
 
-STATIC_URL = '/static/'
+STATIC_URL = '/order/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
+
+# Dropbox storage
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = 'd7ElXR2Sr-AAAAAAAAAAC2HC0qc45ss1TYhRYB4Jy6__NJU1jjGiffP7LlP_2rrf'
+DROPBOX_ROOT_PATH = '/buymore2/'
+

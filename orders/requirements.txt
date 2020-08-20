@@ -4,5 +4,10 @@ djangorestframework_simplejwt
 psycopg2-binary
 gunicorn
 requests
-django-rest-swagger
+drf-yasg
 django-cors-headers
+django-filters
+django-filter
+
+django-storages==1.9.1
+dropbox==10.2.0
