@@ -48,6 +48,7 @@ class DispatchDetails(models.Model):
     status = models.CharField(max_length=20)
     l_b_h_w = models.CharField(max_length=50)
     bin_Id = models.IntegerField()
+    bin_confirm = models.BooleanField(null=True, blank=True, default=False)
     picklist_id = models.IntegerField()
     is_mark_placed = models.BooleanField(default=False)
     have_invoice_file = models.BooleanField(default=False)
@@ -59,6 +60,7 @@ class DispatchDetails(models.Model):
     awb = models.CharField(max_length=30, null=True, blank=True)
     courier_partner = models.CharField(max_length=30)
     shipment_id = models.CharField(max_length=200)
+    fulfillment_model = models.CharField(max_length=50, null=True, blank=True)
     is_canceled = models.BooleanField(default=False)
     dd_cancelledpaymentstatus = models.BooleanField(default=False)
     dd_paymentstatus = models.BooleanField(default=False)
@@ -77,6 +79,21 @@ class DispatchDetails(models.Model):
 #     dipatch_details_id = models.ManyToManyField(DispatchDetails)
 #     def __str__(self):
 #         return str(self.mf_id)
+
+class PostalCode(models.Model):
+    """
+    Model For POStal Code 
+    """
+    class ZoneList(models.IntegerChoices):
+        """ """
+        North = 1
+        South = 2
+        East = 3
+        West = 4
+
+    postal_code_id = models.AutoField(primary_key=True)
+    zone_id = models.PositiveSmallIntegerField(choices=ZoneList.choices,)
+    postal_code = models.CharField(max_length=6)
 
 
 class Reimburesement(models.Model):

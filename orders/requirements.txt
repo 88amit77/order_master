@@ -6,8 +6,6 @@ gunicorn
 requests
 drf-yasg
 django-cors-headers
-django-filters
 django-filter
-
 django-storages==1.9.1
 dropbox==10.2.0
