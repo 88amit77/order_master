@@ -48,6 +48,7 @@ class DispatchDetails(models.Model):
     status = models.CharField(max_length=20)
     l_b_h_w = models.CharField(max_length=50)
     bin_Id = models.IntegerField()
+    bin_confirm = models.BooleanField(null=True, blank=True, default=False)
     picklist_id = models.IntegerField()
     is_mark_placed = models.BooleanField(default=False)
     have_invoice_file = models.BooleanField(default=False)
