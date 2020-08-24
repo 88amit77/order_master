@@ -4,6 +4,11 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import filters
+import dropbox
+
+access_token = 'd7ElXR2Sr-AAAAAAAAAAC2HC0qc45ss1TYhRYB4Jy6__NJU1jjGiffP7LlP_2rrf'
+dbx = dropbox.Dropbox(access_token)
+
 from .models import (ManiFest, PODList, NewOrder, Reimburesement, DispatchDetails, FulfilledReturn, RefundImageTable,
     Reimbursement, TestingStatus,TestingNames,ExternalApiList,ExternalApiLog,CalculationApiList,CalculationApiLog)
 
@@ -1069,3 +1074,23 @@ class GetInvoiceUrl(APIView):
         return Response({
             'link': link
         })
+
+class DownloadMFList(APIView):
+    def get(self, request):
+        mf_id = request.query_params['mf_id']
+        file_path = '/buymore2/orders/manifest/'+'mf_id-'+mf_id+'.pdf'
+        link = dbx.files_get_temporary_link(file_path).link
+        return Response({
+            'link': link
+        })
+
+
+
+# class DownloadPODList(APIView):
+#     def get(self, request):
+#         picklist_id = request.query_params['picklist_id']
+#         file_path = '/buymore2/orders/PODlist/'+picklist_id+'.pdf'
+#         link = dbx.files_get_temporary_link(file_path).link
+#         return Response({
+#             'link': link
+#         })
