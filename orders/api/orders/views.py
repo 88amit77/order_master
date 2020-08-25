@@ -1097,18 +1097,18 @@ class DownloadMFList(APIView):
 #             'link': link
 #         })
 
-    class NewOrdersColumnViewSet(viewsets.ModelViewSet):
-        # queryset = Employee.objects.all()
-        serializer_class = DynamicFieldsNewOrdersModelSerializer
-        pagination_class = CustomOrderPagination
+class NewOrdersColumnViewSet(viewsets.ModelViewSet):
+    # queryset = Employee.objects.all()
+    serializer_class = DynamicFieldsNewOrdersModelSerializer
+    pagination_class = CustomOrderPagination
 
-        def get_queryset(self, *args, **kwargs):
-            qs = NewOrder.objects.all()
-            query = self.request.GET.get("fields")
-            if query:
-                return qs
-            else:
-                return qs
+    def get_queryset(self, *args, **kwargs):
+        qs = NewOrder.objects.all()
+        query = self.request.GET.get("fields")
+        if query:
+            return qs
+        else:
+            return qs
 
 
 class ReturnColumnViewSet(viewsets.ModelViewSet):
