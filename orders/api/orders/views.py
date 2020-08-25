@@ -46,6 +46,8 @@ from .serializers import (
      UpdateCalculationApiListSerializer,
      SerachReturnProcessingSerializer,
      MasterSearchTestingSerializer,
+DynamicFieldsNewOrdersModelSerializer,
+DynamicFieldsReturnsModelSerializer,
  )
 import requests
 from django.db.models import Q
@@ -1094,3 +1096,30 @@ class DownloadMFList(APIView):
 #         return Response({
 #             'link': link
 #         })
+
+    class NewOrdersColumnViewSet(viewsets.ModelViewSet):
+        # queryset = Employee.objects.all()
+        serializer_class = DynamicFieldsNewOrdersModelSerializer
+        pagination_class = CustomOrderPagination
+
+        def get_queryset(self, *args, **kwargs):
+            qs = NewOrder.objects.all()
+            query = self.request.GET.get("fields")
+            if query:
+                return qs
+            else:
+                return qs
+
+
+class ReturnColumnViewSet(viewsets.ModelViewSet):
+    # queryset = Employee.objects.all()
+    serializer_class = DynamicFieldsReturnsModelSerializer
+    pagination_class = CustomOrderReturnPagination
+
+    def get_queryset(self, *args, **kwargs):
+        qs = NewOrder.objects.all()
+        query = self.request.GET.get("fields")
+        if query:
+            return qs
+        else:
+            return qs

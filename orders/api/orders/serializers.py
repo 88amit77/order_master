@@ -395,3 +395,73 @@ class UpdateCalculationApiListSerializer(serializers.ModelSerializer):
     class Meta:
         model = CalculationApiList
         fields = ('cal_id', 'cal_cron_code')
+
+##for new order column select
+class DynamicFieldsNewOrdersModelSerializer(serializers.ModelSerializer):
+
+    def __init__(self, *args, **kwargs):
+        # Don't pass the 'fields' arg up to the superclass
+        request = kwargs.get('context', {}).get('request')
+        str_fields = request.GET.get('fields', '') if request else None
+        fields = str_fields.split(',') if str_fields else None
+
+        # Instantiate the superclass normally
+        super(DynamicFieldsNewOrdersModelSerializer, self).__init__(*args, **kwargs)
+
+        if fields is not None:
+            # Drop any fields that are not specified in the `fields` argument.
+            allowed = set(fields)
+            existing = set(self.fields)
+            for field_name in existing - allowed:
+                self.fields.pop(field_name)
+
+    dd_dispatchdetailss = OrderViewDispatchDetailsSerializer(many=True)
+    dd_fullfilledreturn = OrderViewFulfilledReturnSerializer(many=True)
+    dd_reimburesements = OrderViewReimburesementSerializer(many=True)
+
+
+
+
+    class Meta:
+        model = NewOrder
+        fields = ('dd_id', 'product_id', 'order_id', 'order_item_id', 'order_date',
+                  'dispatch_by_date', 'portal_id', 'portal_sku', 'qty', 'selling_price', 'mrp', 'tax_rate',
+                  'warehouse_id','region', 'payment_method', 'dd_dispatchdetailss', 'dd_fullfilledreturn', 'dd_reimburesements')
+
+##for return view column select
+class DynamicFieldsReturnsModelSerializer(serializers.ModelSerializer):
+
+    def __init__(self, *args, **kwargs):
+        # Don't pass the 'fields' arg up to the superclass
+        request = kwargs.get('context', {}).get('request')
+        str_fields = request.GET.get('fields', '') if request else None
+        fields = str_fields.split(',') if str_fields else None
+
+        # Instantiate the superclass normally
+        super(DynamicFieldsReturnsModelSerializer, self).__init__(*args, **kwargs)
+
+        if fields is not None:
+            # Drop any fields that are not specified in the `fields` argument.
+            allowed = set(fields)
+            existing = set(self.fields)
+            for field_name in existing - allowed:
+                self.fields.pop(field_name)
+
+    dd_id = serializers.IntegerField()
+    product_id = serializers.IntegerField()
+    order_id = serializers.CharField(max_length=50)
+    order_item_id = serializers.CharField(max_length=50)
+    order_date = serializers.DateField()
+    dispatch_by_date = serializers.DateField()
+    # portal_sku = serializers.CharField(max_length=30)
+    warehouse_id = serializers.IntegerField()
+
+    dd_dispatchdetailss = DispatchDetailsSerializer1(many=True)
+    dd_fullfilledreturn = FulfilledReturnSerializer1(many=True)
+    dd_refundimagetable = RefundImageTableSerializer1(many=True)
+
+    class Meta:
+        model = NewOrder
+        fields = ('dd_id', 'product_id', 'order_id', 'order_item_id', 'order_date',
+                  'dispatch_by_date', 'warehouse_id','dd_dispatchdetailss', 'dd_fullfilledreturn',
+                  'dd_refundimagetable')

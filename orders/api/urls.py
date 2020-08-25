@@ -30,6 +30,7 @@ router.register('order/order_view', views.orderviewViewSet, basename="order_view
 router.register('order/list_order_view', views.ListorderViewSet, basename="list_order_view")
 router.register('order/update_bin_id', views.updateBinIdViewSet, basename="update_bin_id")
 router.register('order/update_cancel_bin_id', views.updateCancelBinIdViewSet, basename="update_cancel_bin_id")
+router.register('order/order_view_column', views.NewOrdersColumnViewSet, basename="order_view_column")
 
 #return management POD list page
 router.register('order/create_pod_list', views.CreateRMPODlistViewSet, basename="create_pod_list")
@@ -49,6 +50,7 @@ router.register(r'order/^dispatch_by_date_filter',views.DispatchByDateFilterView
 #order_return
 router.register('order/list_order_return', views.ListOrderReturnViewSet, basename="list_order_return")
 router.register('order/update_search_order_return', views.updateIdViewSet, basename='update_search_order_return')
+router.register('order/order_return_column', views.ReturnColumnViewSet, basename="order_return_column")
 #order return process page
 router.register('order/create_order_return_process', views.OrderReturnProcessViewSet, basename='create_order_return_process')
 router.register('order/search_fulfilled_return', views.SearchFulfilledReturnViewSet, basename="search_fulfilled_return")
