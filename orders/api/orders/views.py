@@ -156,8 +156,21 @@ class CustomOrderSearchPagination(PageNumberPagination):
                     'reimbursement_amount':'Reimburesement Amount',
                    },
                 'sortable': [
-                    # 'buymore_order_id',
                     'dd_id',
+                    'product_id',
+                    'order_id',
+                    'order_item_id',
+                    'order_date',
+                    'dispatch_by_date',
+                    'portal_id',
+                    'portal_sku',
+                    'qty',
+                    'selling_price',
+                    'mrp',
+                    'tax_rate',
+                    'warehouse_id',
+                    'region',
+                    'payment_method',
                 ],
                 'searchable': [
                     # 'buymore_order_id',
@@ -529,7 +542,9 @@ class OrderViewSearchAPIView(generics.ListCreateAPIView):
     'order_item_id', 'order_date', 'dispatch_by_date', 'portal_id', 'portal_sku',
     'qty', 'selling_price', 'mrp', 'tax_rate', 'warehouse_id', 'region', 'payment_method'
    ]
-    ordering_fields = ['buymore_order_id','dd_id']
+    ordering_fields = ['dd_id', 'product_id', 'order_id',
+    'order_item_id', 'order_date', 'dispatch_by_date', 'portal_id', 'portal_sku',
+    'qty', 'selling_price', 'mrp', 'tax_rate', 'warehouse_id', 'region', 'payment_method']
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     queryset = NewOrder.objects.all()
     serializer_class = OrderViewNewOrderSerializer
@@ -1140,9 +1155,6 @@ class CustomOrderForColumnPagination(PageNumberPagination):
                     'case_id':'Case ID',
                     'status_of_case':'Status Of Case',
                     'reimbursement_amount': 'Reimburesement Amount',
-                    'dd_dispatchdetailss': 'Dispatch Details',
-                    'dd_fullfilledreturn': 'FullFill Return',
-                    'dd_reimburesements': 'Reimburesements',
                    },
                 'sortable': [
                     'buymore_order_id',
