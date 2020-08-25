@@ -99,7 +99,10 @@ class CustomOrderPagination(PageNumberPagination):
                     'actual_return_date':'Actual Request Date',
                     'case_id':'Case ID',
                     'status_of_case':'Status Of Case',
-                    'reimbursement_amount':'Reimburesement Amount',
+                    'reimbursement_amount': 'Reimburesement Amount',
+                    'dd_dispatchdetailss': 'Dispatch Details',
+                    'dd_fullfilledreturn': 'FullFill Return',
+                    'dd_reimburesements': 'Reimburesements',
                    },
                 'sortable': [
                     'buymore_order_id',
